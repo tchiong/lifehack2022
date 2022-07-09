@@ -35,13 +35,16 @@ class User {
   }
 
   Future<int> generateUserId() async {
-    var nextId = await Firebase().readData('users/id');
+    Map? nextIdData = await Firebase().readData('users/id');
+    int nextId;
 
-    if (nextId.exists) {
-      Firebase().pushData('users/id', nextId + 1);
-    } else {
+    if (nextIdData == null) {
       nextId = 0;
-      Firebase().pushData('users/id', 1);
+    } else {
+      List<dynamic> ids =
+          nextIdData.values.toList().map((request) => request['id']).toList();
+      ids.sort();
+      nextId = ids.first + 1;
     }
     return nextId;
   }

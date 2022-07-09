@@ -5,7 +5,7 @@ class Firebase {
 
   Firebase();
 
-  void pushData(String path, dynamic data) async {
+  void pushDataToList(String path, dynamic data) async {
     DatabaseReference ref = database.ref(path);
     DatabaseReference listPush = ref.push();
     await listPush.set(data);

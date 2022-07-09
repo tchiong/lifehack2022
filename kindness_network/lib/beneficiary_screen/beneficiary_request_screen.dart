@@ -9,7 +9,7 @@ class BeneficiaryRequestScreen extends StatefulWidget {
   static const String routeName = '/beneficiary-request';
   const BeneficiaryRequestScreen({Key? key, required this.requestType})
       : super(key: key);
-  final String requestType;
+  final JobType requestType;
 
   @override
   State<BeneficiaryRequestScreen> createState() =>
@@ -17,6 +17,7 @@ class BeneficiaryRequestScreen extends StatefulWidget {
 }
 
 class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
+  // Should be passed around from login page
   late int userId;
   @override
   void initState() {
@@ -58,7 +59,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                         const Text("09 Jul 22, 17:00",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w400)),
-                        Text(widget.requestType,
+                        Text(widget.requestType.value,
                             style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w400,
@@ -164,7 +165,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                           isAccepted: false,
                           acceptedId: null,
                           requestTime: DateTime.now());
-                      Firebase().pushData('request/', request.toJson());
+                      Firebase().pushDataToList('request/', request.toJson());
                     },
                     child: const Text("Complete",
                         style: TextStyle(color: Colors.black)),
