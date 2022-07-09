@@ -45,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       onPressed: () {
                         navigateToUserTypeSelector(false);
                       },
-                      child: const Text("Log In With Singpass",
+                      child: const Text("Log In",
                           style: TextStyle(color: Colors.black)),
                     ),
                   ),

@@ -34,27 +34,47 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 75,
               ),
               const SizedBox(height: 20),
-              Container(
-                height: 70,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextButton(
-                  onPressed: () {
-                    navigateToMainScreen();
-                  },
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
               const Text("Log in with Singpass",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+              const SizedBox(height: 20),
+              const Text("Tap the QR code to log in with Singpass",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: darkBlue,
+                    textStyle: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w500),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(defaultRadius),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: const Text("Test Acc 1",
+                      style: TextStyle(color: Colors.black)),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: darkBlue,
+                    textStyle: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w500),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(defaultRadius),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: const Text("Test Acc 2",
+                      style: TextStyle(color: Colors.black)),
+                ),
+              ),
             ],
           ),
         ),
