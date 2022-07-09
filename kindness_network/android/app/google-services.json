@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "720076865783",
+    "firebase_url": "https://kindness-network-27688-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "kindness-network-27688",
+    "storage_bucket": "kindness-network-27688.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720076865783:android:86ad4ed8543bc8778793f2",
+        "android_client_info": {
+          "package_name": "com.example.kindness_network"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720076865783-eg2uj7run2af98bfcqq0q6qo22o4f4ah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSZ8WkQeG1ZTaUd6BcvyCYGEiNVZhGsY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720076865783-eg2uj7run2af98bfcqq0q6qo22o4f4ah.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "720076865783-ptv71u7qvf22gmfr5hf31148asbb1jv1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kindnessNetwork"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
