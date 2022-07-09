@@ -29,8 +29,18 @@ class _VolunteerViewRequestsScreenState
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Are you sure?"),
-          content: Text(request.id.toString()),
+          title: const Text("Are you sure?"),
+          content: RichText(
+              text: TextSpan(
+            text: request.id.toString(), //TODO: Add address
+            style: const TextStyle(color: Colors.black, fontSize: 20),
+            children: [
+              TextSpan(
+                text: DateFormat('\nyyyy-MM-dd hh:mm')
+                    .format(request.requestTime),
+              )
+            ],
+          )),
           actions: [
             TextButton(
               onPressed: () {
