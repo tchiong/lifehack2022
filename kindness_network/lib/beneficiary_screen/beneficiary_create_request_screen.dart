@@ -4,7 +4,6 @@ import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.d
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 import 'package:kindness_network/data/request.dart';
-import 'package:kindness_network/data/route_arguments.dart';
 
 import '../data/firebase.dart';
 
@@ -27,7 +26,7 @@ class _BeneficiaryCreateRequestScreenState
 
   void navigateToRequest(String requestType) {
     Navigator.pushNamed(context, BeneficiaryRequestScreen.routeName,
-        arguments: RouteArguments(userRequest, widget.userId));
+        arguments: userRequest);
   }
 
   _selectDate(BuildContext context) async {
