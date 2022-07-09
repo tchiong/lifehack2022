@@ -34,7 +34,7 @@ class User {
     };
   }
 
-  Future<int> generateUserId() async {
+  static Future<int> generateUserId() async {
     Map? nextIdData = await Firebase().readData('users/id');
     int nextId;
 
@@ -112,7 +112,7 @@ class User {
   }
 
   static Future<User?> getUserFromUserId(int id) async {
-    Map? userData = await Firebase().readData('users/');
+    Map? userData = await Firebase().readData('user/');
     if (userData == null) {
       return null;
     } else {
