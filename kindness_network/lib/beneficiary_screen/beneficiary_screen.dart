@@ -3,6 +3,9 @@ import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.d
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 
+import '../data/firebase.dart';
+import '../data/users.dart';
+
 class BeneficiaryScreen extends StatefulWidget {
   static const String routeName = 'beneficiary-screen';
   const BeneficiaryScreen({Key? key}) : super(key: key);
@@ -12,9 +15,9 @@ class BeneficiaryScreen extends StatefulWidget {
 }
 
 class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
-
- void navigateToRequest(String requestType) {
-    Navigator.pushNamed(context, BeneficiaryRequestScreen.routeName, arguments: requestType);
+  void navigateToRequest(String requestType) {
+    Navigator.pushNamed(context, BeneficiaryRequestScreen.routeName,
+        arguments: requestType);
   }
 
   @override
@@ -27,7 +30,9 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
             child: Column(
               children: [
                 const LanguageSelector(),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 SizedBox(
                   height: 400,
                   child: GridView.count(
@@ -41,13 +46,28 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: darkBlue,
-                            textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                            textStyle: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(defaultRadius),
+                              borderRadius:
+                                  BorderRadius.circular(defaultRadius),
                             ),
                           ),
-                          onPressed: (){}, 
-                          child: const Text("Mental Wellbeing", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                          onPressed: () => {
+                            Firebase().pushData('user', {
+                              'id': 0,
+                              'type': UserType.beneficiary,
+                              'name': 'Uncle',
+                              'age': 60,
+                              'address': 'Singapore',
+                              'specialNeeds': 'Autism',
+                              'phoneNumber': '10001000',
+                              'language': Lang.ch
+                            })
+                          },
+                          child: const Text("Mental Wellbeing",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -56,13 +76,17 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: lightBlue,
-                            textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                            textStyle: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(defaultRadius),
+                              borderRadius:
+                                  BorderRadius.circular(defaultRadius),
                             ),
                           ),
-                          onPressed: (){}, 
-                          child: const Text("House Keeping", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                          onPressed: () {},
+                          child: const Text("House Keeping",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -71,13 +95,19 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: lightBlue,
-                            textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500,),
+                            textStyle: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                            ),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(defaultRadius),
+                              borderRadius:
+                                  BorderRadius.circular(defaultRadius),
                             ),
                           ),
-                          onPressed: (){}, 
-                          child: const Text("Mobility", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                          onPressed: () {},
+                          child: const Text("Mobility",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -86,34 +116,39 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: darkBlue,
-                            textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                            textStyle: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(defaultRadius),
+                              borderRadius:
+                                  BorderRadius.circular(defaultRadius),
                             ),
                           ),
-                          onPressed: (){}, 
-                          child: const Text("Digital Literacy", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                          onPressed: () {},
+                          child: const Text("Digital Literacy",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.black)),
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                width: double.infinity,
-                height: 150,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.black),
-                    primary: Colors.black,
-                    textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(defaultRadius),
+                  width: double.infinity,
+                  height: 150,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Colors.black),
+                      primary: Colors.black,
+                      textStyle: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.w500),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(defaultRadius),
+                      ),
                     ),
+                    onPressed: () {},
+                    child: const Text("Emergency"),
                   ),
-                  onPressed: (){}, 
-                  child: const Text("Emergency"),
                 ),
-              ),
               ],
             ),
           ),
