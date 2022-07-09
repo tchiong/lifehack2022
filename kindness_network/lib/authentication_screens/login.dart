@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kindness_network/authentication_screens/user_type_selector_screen.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
+import 'package:kindness_network/volunteer_screen/volunteer_main.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key, required this.isBeneficiary}) : super(key: key);
+  final bool isBeneficiary;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -14,8 +17,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   void navigateToMainScreen() {
-    Navigator.pushNamedAndRemoveUntil(
-        context, UserTypeSelectorScreen.routeName, (_) => false);
+    if (widget.isBeneficiary) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, BeneficiaryMainScreen.routeName, (_) => false);
+    } else {
+      Navigator.pushNamedAndRemoveUntil(
+          context, VolunteerMainScreen.routeName, (_) => false);
+    }
   }
 
   @override
@@ -57,7 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(defaultRadius),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    navigateToMainScreen();
+                  },
                   child: const Text("Test Acc 1",
                       style: TextStyle(color: Colors.black)),
                 ),

@@ -20,8 +20,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           settings: routeSettings, builder: (_) => const WelcomeScreen());
 
     case LoginScreen.routeName:
+      var isBeneficiary = routeSettings.arguments as bool;
       return MaterialPageRoute(
-          settings: routeSettings, builder: (_) => const LoginScreen());
+          settings: routeSettings,
+          builder: (_) => LoginScreen(isBeneficiary: isBeneficiary));
 
     case BeneficiaryMainScreen.routeName:
       return MaterialPageRoute(

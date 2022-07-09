@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kindness_network/authentication_screens/login.dart';
+import 'package:kindness_network/authentication_screens/user_type_selector_screen.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 
@@ -12,8 +12,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  void navigateToUserTypeSelector(bool isRegister) {
-    Navigator.pushNamed(context, LoginScreen.routeName, arguments: isRegister);
+  void navigateToUserTypeSelector() {
+    Navigator.pushNamed(context, UserTypeSelectorScreen.routeName);
   }
 
   @override
@@ -43,7 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                       onPressed: () {
-                        navigateToUserTypeSelector(false);
+                        navigateToUserTypeSelector();
                       },
                       child: const Text("Log In",
                           style: TextStyle(color: Colors.black)),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kindness_network/authentication_screens/login.dart';
-import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
-import 'package:kindness_network/volunteer_screen/volunteer_main.dart';
 
 class UserTypeSelectorScreen extends StatefulWidget {
   static const String routeName = '/welcome';
@@ -17,15 +15,19 @@ class _UserTypeSelectorScreenState extends State<UserTypeSelectorScreen> {
   void navigateToBeneficiaryScreen() {
     Navigator.pushNamedAndRemoveUntil(
       context,
-      BeneficiaryMainScreen.routeName,
+      LoginScreen.routeName,
       (_) => false,
+      arguments: true,
     );
   }
 
   void navigateToVolunteerScreen() {
     Navigator.pushNamedAndRemoveUntil(
-        context, VolunteerMainScreen.routeName, (_) => false,
-        arguments: false);
+      context,
+      LoginScreen.routeName,
+      (_) => false,
+      arguments: false,
+    );
   }
 
   @override
@@ -49,6 +51,7 @@ class _UserTypeSelectorScreenState extends State<UserTypeSelectorScreen> {
                 height: 200,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    primary: darkBlue,
                     textStyle: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.w500),
                     shape: RoundedRectangleBorder(
@@ -69,6 +72,7 @@ class _UserTypeSelectorScreenState extends State<UserTypeSelectorScreen> {
                 height: 200,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    primary: lightBlue,
                     textStyle: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.w500),
                     shape: RoundedRectangleBorder(
