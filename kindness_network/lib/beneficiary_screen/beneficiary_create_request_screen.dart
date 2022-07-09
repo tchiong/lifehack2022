@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
+import 'package:kindness_network/data/request.dart';
 
 import '../data/firebase.dart';
 import '../data/users.dart';
@@ -14,9 +16,46 @@ class BeneficiaryCreateRequestScreen extends StatefulWidget {
 }
 
 class _BeneficiaryCreateRequestScreenState extends State<BeneficiaryCreateRequestScreen> {
+  JobType selected = JobType.mental;
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = const TimeOfDay(hour: 12, minute:0);
+
   void navigateToRequest(String requestType) {
     Navigator.pushNamed(context, BeneficiaryRequestScreen.routeName,
         arguments: requestType);
+  }
+
+  _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2025),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  void _selectTime() async {
+    final TimeOfDay? newTime = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      initialEntryMode: TimePickerEntryMode.input,
+    );
+    if (newTime != null) {
+      setState(() {
+        selectedTime = newTime;
+      });
+    }
+  }
+
+  void selectJobType(JobType type) {
+    setState(() {
+      selected = type;
+    });
   }
 
   @override
@@ -31,10 +70,14 @@ class _BeneficiaryCreateRequestScreenState extends State<BeneficiaryCreateReques
               children: [
                 const LanguageSelector(),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
+                ),
+                Text(selected.toString(), style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
+                const SizedBox(
+                  height: 10,
                 ),
                 SizedBox(
-                  height: 400,
+                  height: 370,
                   child: GridView.count(
                     crossAxisCount: 2,
                     crossAxisSpacing: 20,
@@ -54,9 +97,9 @@ class _BeneficiaryCreateRequestScreenState extends State<BeneficiaryCreateReques
                             ),
                           ),
                           onPressed: (){
-                            navigateToRequest("Mental Wellbeing");
+                            selectJobType(JobType.mental);
                           }, 
-                          child: const Text("Mental Wellbeing", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                          child:  Text(JobType.mental.toString(), textAlign: TextAlign.center, style: const TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -73,9 +116,9 @@ class _BeneficiaryCreateRequestScreenState extends State<BeneficiaryCreateReques
                             ),
                           ),
                           onPressed: (){
-                            navigateToRequest("House Keeping");
+                            selectJobType(JobType.housekeeping);
                           }, 
-                          child: const Text("House Keeping", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                          child: Text(JobType.housekeeping.toString(), textAlign: TextAlign.center, style: const TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -94,9 +137,9 @@ class _BeneficiaryCreateRequestScreenState extends State<BeneficiaryCreateReques
                             ),
                           ),
                           onPressed: (){
-                            navigateToRequest("Mobility");
+                            selectJobType(JobType.mobility);
                           }, 
-                          child: const Text("Mobility", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                          child: Text(JobType.mobility.toString(), textAlign: TextAlign.center, style: const TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -113,31 +156,51 @@ class _BeneficiaryCreateRequestScreenState extends State<BeneficiaryCreateReques
                             ),
                           ),
                           onPressed: (){
-                            navigateToRequest("Digital Literacy");
+                            selectJobType(JobType.literacy);
                           }, 
-                          child: const Text("Digital Literacy", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
+                          child: Text(JobType.literacy.toString(), textAlign: TextAlign.center, style: const TextStyle(color: Colors.black)),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 150,
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.black),
-                      primary: Colors.black,
-                      textStyle: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.w500),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(defaultRadius),
-                      ),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text("Date: ", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w400),),
+                        Text(DateFormat('yyyy-MM-dd').format(selectedDate),   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                        TextButton( onPressed: () {_selectDate(context);}, child: const Text("Select Date", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),),),
+                      ],
                     ),
-                    onPressed: () {},
-                    child: const Text("Emergency"),
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const Text("Time: ", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w400),),
+                        Text(selectedTime.format(context), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                        TextButton( onPressed: () {_selectTime();}, child: const Text("Select Time", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),),)
+                      ],
+                    ),
+                  ],
                 ),
+                const SizedBox(height: 10,),
+                SizedBox(
+                width: double.infinity,
+                height: 100,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(defaultRadius),
+                    ),
+                  ),
+                  onPressed: () {
+                    navigateToRequest(selected.toString());
+                  }, 
+                  child: const Text("Confirm"),
+                ),
+              ),
               ],
             ),
           ),
@@ -146,3 +209,5 @@ class _BeneficiaryCreateRequestScreenState extends State<BeneficiaryCreateReques
     );
   }
 }
+
+
