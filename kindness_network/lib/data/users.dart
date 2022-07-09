@@ -137,6 +137,24 @@ class User {
       return users.isEmpty ? null : users.first;
     }
   }
+
+  static void setUserIdLang(Lang language, int id) async {
+    Map? usersData = await Firebase().readData('user/');
+    if (usersData != null) {
+      String? key;
+      List<String> pointer = List<String>.from(usersData.keys.toList());
+      for (String string in pointer) {
+        if (parseJson(usersData[string]).id == id) {
+          key = string;
+        }
+      }
+      if (key != null) {
+        User user = parseJson(usersData[key]);
+        user.language = language;
+        Firebase().pushData('user/$key', user.toJson());
+      }
+    }
+  }
 }
 
 enum UserType {
