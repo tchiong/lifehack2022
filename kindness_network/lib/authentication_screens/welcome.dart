@@ -1,7 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:kindness_network/common/constants.dart';
+import 'package:kindness_network/common/routes.dart';
+import 'package:kindness_network/common/widgets/language_selector.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -14,13 +14,7 @@ class WelcomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: Column(
             children: [ 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [ 
-                  TextButton(onPressed: (){}, child: const Text("English"),),
-                  TextButton(onPressed: (){}, child: const Text("Bahasa Melayu"),),
-                ],
-              ),
+              const LanguageSelector(),
               const Text("Are you a...", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),),
               const SizedBox(height: 10,),
               SizedBox(
@@ -48,7 +42,9 @@ class WelcomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(defaultRadius),
                     ),
                   ),
-                  onPressed: (){}, 
+                  onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(beneficiaryRoute, (route) => true);
+                  }, 
                   child: const Text("Beneficiary"),
                 ),
               ),
