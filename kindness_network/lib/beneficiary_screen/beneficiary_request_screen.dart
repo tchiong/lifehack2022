@@ -7,9 +7,9 @@ import 'package:kindness_network/data/users.dart';
 
 class BeneficiaryRequestScreen extends StatefulWidget {
   static const String routeName = '/beneficiary-request';
-  const BeneficiaryRequestScreen({Key? key, required this.requestType})
+  const BeneficiaryRequestScreen({Key? key, required this.request})
       : super(key: key);
-  final JobType requestType;
+  final Request request;
 
   @override
   State<BeneficiaryRequestScreen> createState() =>
@@ -59,7 +59,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                         const Text("09 Jul 22, 17:00",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w400)),
-                        Text(widget.requestType.value,
+                        Text(widget.request.jobType.toString(),
                             style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w400,
@@ -161,7 +161,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       Request request = Request(
                           id: id,
                           requesterId: userId,
-                          jobType: widget.requestType,
+                          jobType: widget.request.jobType,
                           isAccepted: false,
                           acceptedId: -1,
                           requestTime: DateTime.now());

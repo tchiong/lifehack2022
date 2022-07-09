@@ -18,33 +18,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           builder: (_) => const BeneficiaryMainScreen());
 
     case BeneficiaryRequestScreen.routeName:
-      var requestTypeStr = routeSettings.arguments as String;
-      JobType requestType = JobType.mobility;
-      switch (requestTypeStr) {
-        case 'Mental Wellbeing':
-          {
-            requestType = JobType.mental;
-          }
-          break;
-        case 'House-keeping':
-          {
-            requestType = JobType.housekeeping;
-          }
-          break;
-        case 'Mobility':
-          {
-            requestType = JobType.mobility;
-          }
-          break;
-        case 'Digital Literacy':
-          {
-            requestType = JobType.literacy;
-          }
-          break;
-      }
+      var request = routeSettings.arguments as Request;
       return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => BeneficiaryRequestScreen(requestType: requestType));
+          builder: (_) => BeneficiaryRequestScreen(request: request));
     
     case VolunteerMainScreen.routeName:
       return MaterialPageRoute(
