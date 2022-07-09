@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kindness_network/authentication_screens/welcome.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.dart';
-import 'package:kindness_network/beneficiary_screen/beneficiary_screen.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_create_request_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -11,10 +12,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const WelcomeScreen()
       );
 
-    case BeneficiaryScreen.routeName:
+    case BeneficiaryMainScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => const BeneficiaryScreen()
+        builder: (_) => const BeneficiaryMainScreen()
       );
     
     case BeneficiaryRequestScreen.routeName:

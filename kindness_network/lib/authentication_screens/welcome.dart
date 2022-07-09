@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kindness_network/beneficiary_screen/beneficiary_screen.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_create_request_screen.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 
@@ -13,7 +14,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   void navigateToBeneficiaryScreen() {
-    Navigator.pushNamedAndRemoveUntil(context, BeneficiaryScreen.routeName, (_) => false);
+    Navigator.pushNamedAndRemoveUntil(context, BeneficiaryMainScreen.routeName, (_) => false);
   }
 
   
