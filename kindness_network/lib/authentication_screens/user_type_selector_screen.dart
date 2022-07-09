@@ -61,7 +61,8 @@ class _UserTypeSelectorScreenState extends State<UserTypeSelectorScreen> {
                   onPressed: () {
                     navigateToVolunteerScreen();
                   },
-                  child: const Text("Volunteer"),
+                  child: const Text("Volunteer",
+                      style: TextStyle(color: Colors.black)),
                 ),
               ),
               const SizedBox(
@@ -82,7 +83,8 @@ class _UserTypeSelectorScreenState extends State<UserTypeSelectorScreen> {
                   onPressed: () {
                     navigateToBeneficiaryScreen();
                   },
-                  child: const Text("Beneficiary"),
+                  child: const Text("Beneficiary",
+                      style: TextStyle(color: Colors.black)),
                 ),
               ),
             ],
