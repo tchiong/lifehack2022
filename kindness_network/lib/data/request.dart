@@ -14,6 +14,25 @@ class Request {
     required this.acceptedId,
     required this.requestTime,
   });
+
+  Map toJson() {
+    return {
+      'id': id,
+      'requesterId': requesterId,
+      'jobType': jobType.value,
+      'isAccepted': isAccepted,
+      'acceptedId': acceptedId,
+      'requestTime': requestTime,
+    };
+  }
 }
 
-enum JobType { mental, housekeeping, mobility, literacy }
+enum JobType {
+  mental('mental'),
+  housekeeping('housekeeping'),
+  mobility('mobility'),
+  literacy('literacy');
+
+  const JobType(this.value);
+  final String value;
+}
