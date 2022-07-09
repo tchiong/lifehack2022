@@ -84,7 +84,8 @@ class _BeneficiaryCreateRequestScreenState
         jobType: selectedType,
         isAccepted: false,
         acceptedId: -1,
-        requestTime: date);
+        requestTime: date,
+        isCompleted: false);
     Firebase().pushDataToList('request/', request.toJson());
     return request;
   }

@@ -19,8 +19,7 @@ class _BeneficiaryPastRequestsScreenState
 
   @override
   void initState() {
-    _calculation =
-        Request.getAllActiveRequestsForBeneficiary(widget.userId); // TODO
+    _calculation = Request.getAllCompletedRequestsForBeneficiary(widget.userId);
     super.initState();
   }
 
@@ -58,8 +57,8 @@ class _BeneficiaryPastRequestsScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text("Blk 38 Oxley Rd #01-00",
-                            style: const TextStyle(
+                        const Text("Blk 38 Oxley Rd #01-00",
+                            style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold)),
                         Text(
                             DateFormat('yyyy-MM-dd hh:mm')

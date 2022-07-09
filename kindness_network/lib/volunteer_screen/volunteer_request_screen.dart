@@ -6,7 +6,8 @@ import 'package:kindness_network/data/request.dart';
 
 class VolunteerRequestScreen extends StatefulWidget {
   static const String routeName = 'volunteer-request';
-  const VolunteerRequestScreen({Key? key, required this.request}) : super(key: key);
+  const VolunteerRequestScreen({Key? key, required this.request})
+      : super(key: key);
   final Request request;
 
   @override
@@ -160,9 +161,10 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                           jobType: widget.request.jobType,
                           isAccepted: false,
                           acceptedId: -1,
-                          requestTime: DateTime.now());
+                          requestTime: DateTime.now(),
+                          isCompleted: false);
                       Firebase().pushDataToList('request/', request.toJson());
-                    },
+                    }, // TODO
                     child: const Text("Complete",
                         style: TextStyle(color: Colors.black)),
                   ),

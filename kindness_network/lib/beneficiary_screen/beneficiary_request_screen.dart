@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 import 'package:kindness_network/data/request.dart';
+import 'package:kindness_network/data/users.dart';
 
 class BeneficiaryRequestScreen extends StatefulWidget {
   static const String routeName = '/beneficiary-request';
@@ -15,8 +17,37 @@ class BeneficiaryRequestScreen extends StatefulWidget {
 }
 
 class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
+  void navigateToBeneficiaryScreen() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, BeneficiaryMainScreen.routeName, (_) => false);
+  }
+
+  showPhoneDialog() async {
+    User? acceptedUser =
+        await User.getUserFromUserId(widget.request.acceptedId);
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: widget.request.acceptedId == -1
+            ? const Text('Not Accepted')
+            : const Text('Accepted'),
+        content: widget.request.acceptedId == -1
+            ? const Text(
+                'Please give volunteers some time to accept the request')
+            : Text(acceptedUser?.phoneNumber ?? ''),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    User? acceptedUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Request Details"),
@@ -46,9 +77,8 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                         const Text("Request Raised:",
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w600)),
-                        const Text(
-                            "09 Jul 22, 17:00", // Change to request.requestTime
-                            style: TextStyle(
+                        Text(widget.request.requestTime.toString(),
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w400)),
                         Text(widget.request.jobType.toString(),
                             style: const TextStyle(
@@ -107,9 +137,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                         borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
-                    onPressed: () {
-                      // Prompt with acceptedId Phone Number
-                    },
+                    onPressed: () async => {showPhoneDialog()},
                     child: const Text("Call",
                         style: TextStyle(color: Colors.black)),
                   ),
@@ -130,7 +158,8 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       ),
                     ),
                     onPressed: () {
-                      // Remove Request
+                      Request.deleteRequestById(widget.request.id);
+                      navigateToBeneficiaryScreen();
                     },
                     child: const Text("Cancel",
                         style: TextStyle(color: Colors.black)),
@@ -152,7 +181,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      // Mark Request as complete and update firebase
+                      Request.completeRequest(widget.request);
                     },
                     child: const Text("Complete",
                         style: TextStyle(color: Colors.black)),

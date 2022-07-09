@@ -111,7 +111,7 @@ class User {
         language: language);
   }
 
-  static getUserFromUserId(int id) async {
+  static Future<User?> getUserFromUserId(int id) async {
     Map? userData = await Firebase().readData('users/');
     if (userData == null) {
       return null;

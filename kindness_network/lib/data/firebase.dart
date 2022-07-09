@@ -11,9 +11,19 @@ class Firebase {
     await listPush.set(data);
   }
 
+  void pushData(String path, dynamic data) async {
+    DatabaseReference ref = database.ref(path);
+    await ref.set(data);
+  }
+
   Future<dynamic> readData(String path) async {
     final DatabaseReference ref = database.ref();
     final DataSnapshot snapshot = await ref.child(path).get();
     return snapshot.value;
+  }
+
+  void deleteData(String path) async {
+    final DatabaseReference ref = database.ref();
+    ref.child(path).remove();
   }
 }

@@ -7,6 +7,7 @@ class Request {
   bool isAccepted;
   int acceptedId;
   DateTime requestTime;
+  bool isCompleted;
 
   int newId() {
     return 0;
@@ -18,7 +19,8 @@ class Request {
       required this.jobType,
       required this.isAccepted,
       required this.acceptedId,
-      required this.requestTime});
+      required this.requestTime,
+      required this.isCompleted});
 
   Map toJson() {
     return {
@@ -28,6 +30,7 @@ class Request {
       'isAccepted': isAccepted,
       'acceptedId': acceptedId,
       'requestTime': requestTime.toString(),
+      'isCompleted': isCompleted,
     };
   }
 
@@ -46,7 +49,7 @@ class Request {
     return nextId;
   }
 
-  static parseJson(record) {
+  static Request parseJson(record) {
     Map<String, dynamic> attributes = {
       'id': '',
       'requesterId': '',
@@ -54,6 +57,7 @@ class Request {
       'isAccepted': '',
       'acceptedId': '',
       'requestTime': '',
+      'isCompleted': '',
     };
 
     JobType jobType = JobType.mobility;
@@ -88,9 +92,11 @@ class Request {
         jobType: jobType,
         isAccepted: attributes['isAccepted'],
         acceptedId: attributes['acceptedId'],
-        requestTime: DateTime.parse(attributes['requestTime']));
+        requestTime: DateTime.parse(attributes['requestTime']),
+        isCompleted: attributes['isCompleted']);
   }
 
+  // Database Calls
   static Future<List<Request>> getAllActiveRequestsForBeneficiary(
       int id) async {
     Map? requestsData = await Firebase().readData('request/');
@@ -119,6 +125,54 @@ class Request {
           .where((request) => request.isAccepted == false)
           .toList());
       return requests;
+    }
+  }
+
+  static Future<List<Request>> getAllCompletedRequestsForBeneficiary(
+      int id) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData == null) {
+      return [];
+    } else {
+      List<Request> requests = List<Request>.from(requestsData.values
+          .toList()
+          .map((requestData) => parseJson(requestData))
+          .where((request) =>
+              request.isCompleted == true && request.requesterId == id)
+          .toList());
+      return requests;
+    }
+  }
+
+  static void completeRequest(Request request) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData != null) {
+      String? key;
+      List<String> pointer = List<String>.from(requestsData.keys.toList());
+      for (String string in pointer) {
+        if (parseJson(requestsData[string]).id == request.id) {
+          key = string;
+        }
+      }
+      if (key != null) {
+        Firebase().pushData('request/$key', request.toJson());
+      }
+    }
+  }
+
+  static void deleteRequestById(int id) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData != null) {
+      String? key;
+      List<String> pointer = List<String>.from(requestsData.keys.toList());
+      for (String string in pointer) {
+        if (parseJson(requestsData[string]).id == id) {
+          key = string;
+        }
+      }
+      if (key != null) {
+        Firebase().deleteData('request/$key');
+      }
     }
   }
 }
