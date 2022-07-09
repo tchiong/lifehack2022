@@ -26,11 +26,10 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           builder: (_) => LoginScreen(isBeneficiary: isBeneficiary));
 
     case BeneficiaryMainScreen.routeName:
+      var userId = routeSettings.arguments as int;
       return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => const BeneficiaryMainScreen(
-                userId: 0,
-              )); // TODO Pass Proper UserId
+          builder: (_) => BeneficiaryMainScreen(userId: userId));
 
     case BeneficiaryRequestScreen.routeName:
       var request = routeSettings.arguments as Request;
@@ -39,11 +38,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           builder: (_) => BeneficiaryRequestScreen(request: request));
 
     case VolunteerMainScreen.routeName:
+      var userId = routeSettings.arguments as int;
       return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => const VolunteerMainScreen(
-                userId: 0,
-              )); // TODO Pass Proper UserId
+          builder: (_) => VolunteerMainScreen(
+                userId: userId,
+              ));
 
     case VolunteerRequestScreen.routeName:
       var request = routeSettings.arguments as Request;

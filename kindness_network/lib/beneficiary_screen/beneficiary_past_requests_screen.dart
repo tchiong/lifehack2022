@@ -42,13 +42,13 @@ class _BeneficiaryPastRequestsScreenState
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           List<Widget> children;
           if (snapshot.hasData) {
-            if (snapshot.data!.isEmpty) {
+            List<Request> calculation = snapshot.data?[0];
+            User? user = snapshot.data?[1];
+            if (calculation.isEmpty) {
               children = const <Widget>[
                 Center(child: Text("No Requests Completed yet!"))
               ];
             } else {
-              List<Request> calculation = snapshot.data?[0];
-              User? user = snapshot.data?[1];
               children = calculation.map((request) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
