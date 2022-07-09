@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 
 class BeneficiaryScreen extends StatefulWidget {
+  static const String routeName = 'beneficiary-screen';
   const BeneficiaryScreen({Key? key}) : super(key: key);
 
   @override
@@ -10,6 +12,11 @@ class BeneficiaryScreen extends StatefulWidget {
 }
 
 class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
+
+ void navigateToRequest(String requestType) {
+    Navigator.pushNamed(context, BeneficiaryRequestScreen.routeName, arguments: requestType);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_screen.dart';
 import 'package:kindness_network/common/constants.dart';
-import 'package:kindness_network/common/routes.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
+  static const String routeName = '/welcome';
   const WelcomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  void navigateToBeneficiaryScreen() {
+    Navigator.pushNamed(context, BeneficiaryScreen.routeName);
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: 
@@ -43,7 +54,7 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(beneficiaryRoute, (route) => true);
+                    navigateToBeneficiaryScreen();
                   }, 
                   child: const Text("Beneficiary"),
                 ),

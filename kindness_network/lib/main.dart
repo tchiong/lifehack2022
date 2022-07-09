@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kindness_network/authentication_screens/welcome.dart';
-import 'package:kindness_network/beneficiary_screen/beneficiary_screen.dart';
-import 'package:kindness_network/common/routes.dart';
+import 'package:kindness_network/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,10 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const WelcomeScreen(),
-       routes: {
-              welcomeRoute: (context) => const WelcomeScreen(),
-              beneficiaryRoute: (context) => const BeneficiaryScreen(),
-          },
+      onGenerateRoute: (settings) => generateRoute(settings),
     );
   }
 }
