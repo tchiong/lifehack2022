@@ -1,3 +1,5 @@
+import 'package:firebase_database/firebase_database.dart';
+
 class User {
   int id;
   UserType type;
@@ -18,8 +20,50 @@ class User {
     required this.phoneNumber,
     required this.language,
   });
+
+  Map toJson() {
+    return {
+      'id': id,
+      'type': type.value,
+      'name': name,
+      'age': age,
+      'address': address,
+      'specialNeeds': specialNeeds,
+      'phoneNumber': phoneNumber,
+      'language': language.value
+    };
+  }
+
+  static parseJson(record) {
+    Map<String, dynamic> attributes = {
+      'id': '',
+      'type': '',
+      'name': '',
+      'age': '',
+      'address': '',
+      'specialNeeds': '',
+      'phoneNumber': '',
+      'language': '',
+    };
+
+    record.forEach((key, value) => {attributes[key] = value});
+  }
 }
 
-enum UserType { volunteer, beneficiary }
+enum UserType {
+  volunteer('volunteer'),
+  beneficiary('beneficiary');
 
-enum Lang { en, ch, ms, ta }
+  const UserType(this.value);
+  final String value;
+}
+
+enum Lang {
+  en('en'),
+  ch('ch'),
+  ms('ms'),
+  ta('ta');
+
+  const Lang(this.value);
+  final String value;
+}
