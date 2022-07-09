@@ -6,15 +6,14 @@ import 'package:kindness_network/common/widgets/language_selector.dart';
 import '../data/firebase.dart';
 import '../data/users.dart';
 
-class BeneficiaryScreen extends StatefulWidget {
-  static const String routeName = 'beneficiary-screen';
-  const BeneficiaryScreen({Key? key}) : super(key: key);
+class BeneficiaryCreateRequestScreen extends StatefulWidget {
+  const BeneficiaryCreateRequestScreen({Key? key}) : super(key: key);
 
   @override
-  State<BeneficiaryScreen> createState() => _BeneficiaryScreenState();
+  State<BeneficiaryCreateRequestScreen> createState() => _BeneficiaryCreateRequestScreenState();
 }
 
-class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
+class _BeneficiaryCreateRequestScreenState extends State<BeneficiaryCreateRequestScreen> {
   void navigateToRequest(String requestType) {
     Navigator.pushNamed(context, BeneficiaryRequestScreen.routeName,
         arguments: requestType);
