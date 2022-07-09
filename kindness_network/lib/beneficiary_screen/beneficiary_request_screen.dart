@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_feedback_screen.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
@@ -20,7 +21,8 @@ class BeneficiaryRequestScreen extends StatefulWidget {
 class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
   void navigateToBeneficiaryScreen() {
     Navigator.pushNamedAndRemoveUntil(
-        context, BeneficiaryMainScreen.routeName, (_) => false);
+        context, BeneficiaryFeedbackScreen.routeName, (_) => false,
+        arguments: widget.request);
   }
 
   showPhoneDialog() async {

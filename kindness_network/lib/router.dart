@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kindness_network/authentication_screens/login.dart';
 import 'package:kindness_network/authentication_screens/welcome_screen.dart';
 import 'package:kindness_network/authentication_screens/user_type_selector_screen.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_feedback_screen.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.dart';
 import 'package:kindness_network/data/request.dart';
@@ -37,6 +38,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => BeneficiaryRequestScreen(request: request));
+
+    case BeneficiaryFeedbackScreen.routeName:
+      var request = routeSettings.arguments as Request;
+      return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => BeneficiaryFeedbackScreen(request: request));
 
     case VolunteerMainScreen.routeName:
       return MaterialPageRoute(
