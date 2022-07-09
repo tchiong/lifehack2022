@@ -13,7 +13,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   void navigateToBeneficiaryScreen() {
-    Navigator.pushNamed(context, BeneficiaryScreen.routeName);
+    Navigator.pushNamedAndRemoveUntil(context, BeneficiaryScreen.routeName, (_) => false);
   }
 
   

@@ -23,6 +23,7 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Choose a request"), centerTitle: true,),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
