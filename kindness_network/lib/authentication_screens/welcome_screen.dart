@@ -28,7 +28,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 children: [
                   const LanguageSelector(),
                   const SizedBox(
-                    height: 150,
+                    height: 120,
+                  ),
+                  const Text(
+                    "Welcome to Kindess Network!",
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 40,
                   ),
                   SizedBox(
                     width: double.infinity,

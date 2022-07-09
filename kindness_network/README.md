@@ -19,6 +19,6 @@ You will require flutter v3.0.4, connect your android emulator/device and run th
 
 Since we are unable to get approval to connect to singpass for login during the duration of this competition, we provide two test accounts each for beneficiaries and volunteers.
 
-
+After clicking log in, choose either volunteer or beneficiary and you will enter the singpass login screen. Below the singpass QR code, you will see some buttons to log in as test accounts. 
 
 
