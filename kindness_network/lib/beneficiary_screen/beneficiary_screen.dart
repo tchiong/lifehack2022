@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 
@@ -35,13 +33,14 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                         height: 150,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                            primary: darkBlue,
                             textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(defaultRadius),
                             ),
                           ),
                           onPressed: (){}, 
-                          child: const Text("Mental Wellbeing", textAlign: TextAlign.center,),
+                          child: const Text("Mental Wellbeing", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -49,13 +48,14 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                         height: 150,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                            primary: lightBlue,
                             textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(defaultRadius),
                             ),
                           ),
                           onPressed: (){}, 
-                          child: const Text("House Keeping", textAlign: TextAlign.center,),
+                          child: const Text("House Keeping", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -63,13 +63,14 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                         height: 150,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                            primary: lightBlue,
+                            textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500,),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(defaultRadius),
                             ),
                           ),
                           onPressed: (){}, 
-                          child: const Text("Mobility", textAlign: TextAlign.center,),
+                          child: const Text("Mobility", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                         ),
                       ),
                       SizedBox(
@@ -77,13 +78,14 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                         height: 150,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
+                            primary: darkBlue,
                             textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(defaultRadius),
                             ),
                           ),
                           onPressed: (){}, 
-                          child: const Text("Digital Literacy", textAlign: TextAlign.center,),
+                          child: const Text("Digital Literacy", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                         ),
                       ),
                     ],
@@ -94,6 +96,7 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                 height: 150,
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.black),
                     primary: Colors.black,
                     textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                     shape: RoundedRectangleBorder(
@@ -101,7 +104,7 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                     ),
                   ),
                   onPressed: (){}, 
-                  child: const Text("Volunteer"),
+                  child: const Text("Emergency"),
                 ),
               ),
               ],
