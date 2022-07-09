@@ -1,16 +1,24 @@
 # kindness_network
 
-A new Flutter project.
+A mobile app aiming to serve as a platform for volunteers and beneficiaries.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+We provide the apk build file which can be ran on any android device or emulator. 
+Alternatively, if you have flutter installed, you may run the main.dart file with an android emulator.
 
-A few resources to get you started if this is your first Flutter project:
+### Setting up using the apk
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Download the apk file to an android emulator or android phone and install the app. 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Setting up using flutter
+
+You will require flutter v3.0.4, connect your android emulator/device and run the main.dart file.
+
+## Test Accounts
+
+Since we are unable to get approval to connect to singpass for login during the duration of this competition, we provide two test accounts each for beneficiaries and volunteers.
+
+
+
+
