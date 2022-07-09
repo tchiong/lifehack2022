@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kindness_network/authentication_screens/login.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
@@ -61,8 +62,15 @@ class _UserTypeSelectorScreenState extends State<UserTypeSelectorScreen> {
                   onPressed: () {
                     navigateToVolunteerScreen();
                   },
-                  child: const Text("Volunteer",
-                      style: TextStyle(color: Colors.black)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SvgPicture.asset('assets/icons/volunteer.svg',
+                          height: 100, width: 100),
+                      const Text("Volunteer",
+                          style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -83,8 +91,15 @@ class _UserTypeSelectorScreenState extends State<UserTypeSelectorScreen> {
                   onPressed: () {
                     navigateToBeneficiaryScreen();
                   },
-                  child: const Text("Beneficiary",
-                      style: TextStyle(color: Colors.black)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SvgPicture.asset('assets/icons/beneficiary.svg',
+                          height: 100, width: 100),
+                      const Text("Beneficiary",
+                          style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
                 ),
               ),
             ],
