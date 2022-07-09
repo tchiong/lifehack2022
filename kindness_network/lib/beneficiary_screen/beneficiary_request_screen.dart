@@ -102,7 +102,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                         BorderRadius.all(Radius.circular(defaultRadius)),
                   ),
                   width: double.infinity,
-                  height: 180,
+                  height: 100,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -116,12 +116,6 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      Text("Estimated Arrival:",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w600)),
-                      Text("Pending",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400)),
                     ],
                   ),
                 ),
