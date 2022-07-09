@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kindness_network/volunteer_screen/volunteer_past_requests_screen.dart';
 import 'package:kindness_network/volunteer_screen/volunteer_view_requests.dart';
 
 class VolunteerMainScreen extends StatefulWidget {
@@ -17,7 +18,7 @@ class _VolunteerMainScreenState extends State<VolunteerMainScreen> {
   List<Widget> pages = [
     const VolunteerViewRequestsScreen(),
     const Center(child: Text("upcoming")),
-    const Center(child: Text("past")),
+    const VolunteerPastRequestsScreen(),
   ];
 
   void updatePage(int page) {
