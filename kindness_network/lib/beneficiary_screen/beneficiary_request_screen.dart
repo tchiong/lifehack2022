@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
@@ -56,7 +57,9 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+            padding: const EdgeInsets.symmetric(
+              horizontal: defaultPadding,
+            ),
             child: Column(
               children: [
                 const LanguageSelector(),
@@ -130,6 +133,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                   height: 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       primary: darkBlue,
                       textStyle: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.w500),
@@ -138,8 +142,15 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       ),
                     ),
                     onPressed: () async => {showPhoneDialog()},
-                    child: const Text("Call",
-                        style: TextStyle(color: Colors.black)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Call",
+                            style: TextStyle(color: Colors.black)),
+                        SvgPicture.asset('assets/icons/phone-call.svg',
+                            height: 80, width: 80),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -150,6 +161,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                   height: 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       primary: red,
                       textStyle: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.w500),
@@ -161,8 +173,15 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       Request.deleteRequestById(widget.request.id);
                       navigateToBeneficiaryScreen();
                     },
-                    child: const Text("Cancel",
-                        style: TextStyle(color: Colors.black)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Cancel",
+                            style: TextStyle(color: Colors.black)),
+                        SvgPicture.asset('assets/icons/cancel.svg',
+                            height: 80, width: 80),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -173,6 +192,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                   height: 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       primary: Colors.blue,
                       textStyle: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.w500),
@@ -184,9 +204,19 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       Request.completeRequest(widget.request);
                       navigateToBeneficiaryScreen();
                     },
-                    child: const Text("Complete",
-                        style: TextStyle(color: Colors.black)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Complete",
+                            style: TextStyle(color: Colors.black)),
+                        SvgPicture.asset('assets/icons/tick.svg',
+                            height: 80, width: 80),
+                      ],
+                    ),
                   ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
               ],
             ),
