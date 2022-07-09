@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_create_request_screen.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_past_requests_screen.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_pending_request_screen.dart';
 
 class BeneficiaryMainScreen extends StatefulWidget {
@@ -28,7 +29,9 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
       BeneficiaryPendingRequestScreen(
         userId: widget.userId,
       ),
-      const Center(child: Text("View Past")),
+      BeneficiaryPastRequestsScreen(
+        userId: widget.userId,
+      ),
     ];
     super.initState();
   }
