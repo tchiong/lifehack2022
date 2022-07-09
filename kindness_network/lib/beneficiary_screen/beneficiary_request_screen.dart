@@ -163,7 +163,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                           requesterId: userId,
                           jobType: widget.requestType,
                           isAccepted: false,
-                          acceptedId: null,
+                          acceptedId: -1,
                           requestTime: DateTime.now());
                       Firebase().pushDataToList('request/', request.toJson());
                     },

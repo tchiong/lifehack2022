@@ -5,7 +5,7 @@ class Request {
   int requesterId;
   JobType jobType;
   bool isAccepted;
-  int? acceptedId;
+  int acceptedId;
   DateTime requestTime;
 
   int newId() {
@@ -17,7 +17,7 @@ class Request {
       required this.requesterId,
       required this.jobType,
       required this.isAccepted,
-      this.acceptedId,
+      required this.acceptedId,
       required this.requestTime});
 
   Map toJson() {
@@ -30,23 +30,6 @@ class Request {
       'requestTime': requestTime.toString(),
     };
   }
-
-  static List<Request> sampleRequests = [
-    Request(
-        id: 1,
-        requesterId: 1,
-        jobType: JobType.mental,
-        isAccepted: false,
-        acceptedId: -1,
-        requestTime: DateTime(2022, 7, 10)),
-    Request(
-        id: 2,
-        requesterId: 1,
-        jobType: JobType.housekeeping,
-        isAccepted: true,
-        acceptedId: 2,
-        requestTime: DateTime(2022, 7, 10)),
-  ];
 
   static Future<int> generateRequestId() async {
     Map? nextIdData = await Firebase().readData('request/');
@@ -106,6 +89,19 @@ class Request {
         isAccepted: attributes['isAccepted'],
         acceptedId: attributes['acceptedId'],
         requestTime: DateTime.parse(attributes['requestTime']));
+  }
+
+  static getAllActiveRequests() async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData == null) {
+      return null;
+    } else {
+      List<dynamic> requests = requestsData.values
+          .toList()
+          .map((requestData) => parseJson(requestData))
+          .where((request) => request.accepted)
+          .toList();
+    }
   }
 }
 
