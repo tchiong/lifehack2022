@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.dart';
 import 'package:kindness_network/common/constants.dart';
@@ -93,10 +94,6 @@ class _BeneficiaryCreateRequestScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Choose a request"),
-        centerTitle: true,
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -114,15 +111,15 @@ class _BeneficiaryCreateRequestScreenState
                   height: 10,
                 ),
                 SizedBox(
-                  height: 370,
+                  height: 400,
                   child: GridView.count(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
                     children: [
                       SizedBox(
                         width: 125,
-                        height: 150,
+                        height: 140,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: darkBlue,
@@ -136,14 +133,24 @@ class _BeneficiaryCreateRequestScreenState
                           onPressed: () {
                             selectJobType(JobType.mental);
                           },
-                          child: Text(JobType.mental.toString(),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.black)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/mental-wellbeing.svg',
+                                height: 70,
+                                width: 70,
+                              ),
+                              Text(JobType.mental.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(color: Colors.black)),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
                         width: 125,
-                        height: 150,
+                        height: 140,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: lightBlue,
@@ -157,9 +164,19 @@ class _BeneficiaryCreateRequestScreenState
                           onPressed: () {
                             selectJobType(JobType.housekeeping);
                           },
-                          child: Text(JobType.housekeeping.toString(),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.black)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/housekeeping.svg',
+                                height: 70,
+                                width: 70,
+                              ),
+                              Text(JobType.housekeeping.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(color: Colors.black)),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -180,9 +197,19 @@ class _BeneficiaryCreateRequestScreenState
                           onPressed: () {
                             selectJobType(JobType.mobility);
                           },
-                          child: Text(JobType.mobility.toString(),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.black)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/wheelchair.svg',
+                                height: 70,
+                                width: 70,
+                              ),
+                              Text(JobType.mobility.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(color: Colors.black)),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -201,9 +228,19 @@ class _BeneficiaryCreateRequestScreenState
                           onPressed: () {
                             selectJobType(JobType.literacy);
                           },
-                          child: Text(JobType.literacy.toString(),
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.black)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/digital-literacy.svg',
+                                height: 70,
+                                width: 70,
+                              ),
+                              Text(JobType.literacy.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(color: Colors.black)),
+                            ],
+                          ),
                         ),
                       ),
                     ],
