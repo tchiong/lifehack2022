@@ -91,16 +91,17 @@ class Request {
         requestTime: DateTime.parse(attributes['requestTime']));
   }
 
-  static getAllActiveRequests() async {
+  static Future<List<Request>> getAllActiveRequests() async {
     Map? requestsData = await Firebase().readData('request/');
     if (requestsData == null) {
-      return null;
+      return [];
     } else {
-      List<dynamic> requests = requestsData.values
+      List<Request> requests = List<Request>.from(requestsData.values
           .toList()
           .map((requestData) => parseJson(requestData))
-          .where((request) => request.accepted)
-          .toList();
+          .where((request) => request.isAccepted == false)
+          .toList());
+      return requests;
     }
   }
 }
