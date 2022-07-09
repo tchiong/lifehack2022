@@ -3,6 +3,7 @@ import 'package:kindness_network/beneficiary_screen/beneficiary_create_request_s
 import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
+import 'package:kindness_network/volunteer_screen/volunteer_main.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String routeName = '/welcome';
@@ -15,6 +16,10 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   void navigateToBeneficiaryScreen() {
     Navigator.pushNamedAndRemoveUntil(context, BeneficiaryMainScreen.routeName, (_) => false);
+  }
+
+  void navigateToVolunteerScreen() {
+    Navigator.pushNamedAndRemoveUntil(context, VolunteerMainScreen.routeName, (_) => false);
   }
 
   
@@ -39,7 +44,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       borderRadius: BorderRadius.circular(defaultRadius),
                     ),
                   ),
-                  onPressed: (){}, 
+                  onPressed: (){
+                    navigateToVolunteerScreen();
+                  }, 
                   child: const Text("Volunteer"),
                 ),
               ),
