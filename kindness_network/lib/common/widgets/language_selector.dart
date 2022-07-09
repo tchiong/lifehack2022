@@ -9,9 +9,11 @@ class LanguageSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [ 
+      children: [
         TextButton(onPressed: (){}, child: const Text("English"),),
         TextButton(onPressed: (){}, child: const Text("Bahasa Melayu"),),
+        TextButton(onPressed: (){}, child: const Text("中文"),),
+        TextButton(onPressed: (){}, child: const Text("தமிழ்"),),
       ],
     );
   }

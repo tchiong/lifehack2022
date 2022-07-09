@@ -15,6 +15,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Request Details"), centerTitle: true,),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -22,18 +23,94 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
             child: Column(
               children: [
                 const LanguageSelector(),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  decoration: const BoxDecoration(
+                    color: lightBlue,
+                    borderRadius: BorderRadius.all(Radius.circular(defaultRadius)),
+                  ),
+                  width: double.infinity,
+                  height: 120,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Text("Request Raised:", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
+                      const Text("09 Jul 22, 17:00", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
+                      Text(widget.requestType, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w400, decoration: TextDecoration.underline)),
+                    ],
+                  )
+                ),
+                const SizedBox(height: 10,),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                  decoration: const BoxDecoration(
+                    color: lightBlue,
+                    borderRadius: BorderRadius.all(Radius.circular(defaultRadius)),
+                  ),
+                  width: double.infinity,
+                  height: 180,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Text("Assigned Volunteer:", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
+                      const Text("Pending", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),
+                      const SizedBox(height: 10,),
+                      const Text("Estimated Arrival:", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
+                      const Text("Pending", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400)),                    
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10,),
                 SizedBox(
                   width: double.infinity,
-                  height: 200,
+                  height: 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                      primary: darkBlue,
+                      textStyle: const TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
-                    onPressed: (){}, 
-                    child: const Text("Volunteer"),
+                    onPressed: () {
+                    }, 
+                    child: const Text("Call", style: TextStyle(color: Colors.black)),
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                SizedBox(
+                  width: double.infinity,
+                  height: 100,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: red,
+                      textStyle: const TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(defaultRadius),
+                      ),
+                    ),
+                    onPressed: () {
+                    }, 
+                    child: const Text("Cancel", style: TextStyle(color: Colors.black)),
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                SizedBox(
+                  width: double.infinity,
+                  height: 100,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      textStyle: const TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(defaultRadius),
+                      ),
+                    ),
+                    onPressed: () {
+                    }, 
+                    child: const Text("Complete", style: TextStyle(color: Colors.black)),
                   ),
                 ),
               ],

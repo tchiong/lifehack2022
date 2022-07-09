@@ -46,7 +46,9 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                               borderRadius: BorderRadius.circular(defaultRadius),
                             ),
                           ),
-                          onPressed: (){}, 
+                          onPressed: (){
+                            navigateToRequest("Mental Wellbeing");
+                          }, 
                           child: const Text("Mental Wellbeing", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                         ),
                       ),
@@ -61,7 +63,9 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                               borderRadius: BorderRadius.circular(defaultRadius),
                             ),
                           ),
-                          onPressed: (){}, 
+                          onPressed: (){
+                            navigateToRequest("House Keeping");
+                          }, 
                           child: const Text("House Keeping", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                         ),
                       ),
@@ -76,7 +80,9 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                               borderRadius: BorderRadius.circular(defaultRadius),
                             ),
                           ),
-                          onPressed: (){}, 
+                          onPressed: (){
+                            navigateToRequest("Mobility");
+                          }, 
                           child: const Text("Mobility", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                         ),
                       ),
@@ -91,7 +97,9 @@ class _BeneficiaryScreenState extends State<BeneficiaryScreen> {
                               borderRadius: BorderRadius.circular(defaultRadius),
                             ),
                           ),
-                          onPressed: (){}, 
+                          onPressed: (){
+                            navigateToRequest("Digital Literacy");
+                          }, 
                           child: const Text("Digital Literacy", textAlign: TextAlign.center, style: TextStyle(color: Colors.black)),
                         ),
                       ),
