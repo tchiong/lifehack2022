@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
+import 'package:kindness_network/volunteer_screen/volunteer_request_screen.dart';
 
 class VolunteerViewRequestsScreen extends StatefulWidget {
   const VolunteerViewRequestsScreen({Key? key}) : super(key: key);
@@ -12,6 +13,40 @@ class VolunteerViewRequestsScreen extends StatefulWidget {
 
 class _VolunteerViewRequestsScreenState extends State<VolunteerViewRequestsScreen> {
   final Future<List<Request>> _calculation = Request.getAllActiveRequests();
+  
+  void acceptRequest(Request request) async {
+    bool accepted = await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Are you sure?"),
+          content: Text(request.id.toString()),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+    _moveToRequestScreen(accepted, request);
+  }
+
+  void _moveToRequestScreen(bool accepted, Request request) {
+    if (accepted) {
+      Navigator.pushNamed(context, VolunteerRequestScreen.routeName,
+        arguments: request);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +119,7 @@ class _VolunteerViewRequestsScreenState extends State<VolunteerViewRequestsScree
                     ),
                   ),
                   onPressed: (){
-                    
+                    acceptRequest(request);
                   }, 
                   child: const Text("Accept", style: TextStyle(color: Colors.black)),
                 ),
