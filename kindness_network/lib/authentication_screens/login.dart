@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kindness_network/authentication_screens/welcome.dart';
+import 'package:kindness_network/authentication_screens/user_type_selector_screen.dart';
 import 'package:kindness_network/common/constants.dart';
+import 'package:kindness_network/common/widgets/language_selector.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const String routeName = '/welcome';
+  static const String routeName = '/login';
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -11,37 +12,37 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  void navigateToWelcomeScreen() {
+  void navigateToMainScreen() {
     Navigator.pushNamedAndRemoveUntil(
-        context, WelcomeScreen.routeName, (_) => false);
+        context, UserTypeSelectorScreen.routeName, (_) => false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Log In"),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'NRIC',
-                      hintText: 'Enter your NRIC'),
-                ),
+              const LanguageSelector(),
+              const SizedBox(
+                height: 75,
               ),
+              const SizedBox(height: 20),
               Container(
-                height: 50,
-                width: 250,
+                height: 70,
+                width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(20)),
                 child: TextButton(
                   onPressed: () {
-                    navigateToWelcomeScreen();
+                    navigateToMainScreen();
                   },
                   child: const Text(
                     'Login',
@@ -49,6 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text("Log in with Singpass",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
             ],
           ),
         ),

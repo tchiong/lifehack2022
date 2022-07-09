@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+import 'package:kindness_network/authentication_screens/login.dart';
+import 'package:kindness_network/common/constants.dart';
+import 'package:kindness_network/common/widgets/language_selector.dart';
+
+class WelcomeScreen extends StatefulWidget {
+  static const String routeName = 'loginOrRegister';
+  const WelcomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  void navigateToUserTypeSelector(bool isRegister) {
+    Navigator.pushNamed(context, LoginScreen.routeName, arguments: isRegister);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const LanguageSelector(),
+                  const SizedBox(
+                    height: 150,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 150,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: lightBlue,
+                        textStyle: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.w500),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(defaultRadius),
+                        ),
+                      ),
+                      onPressed: () {
+                        navigateToUserTypeSelector(false);
+                      },
+                      child: const Text("Log In With Singpass",
+                          style: TextStyle(color: Colors.black)),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              )),
+        ),
+      ),
+    );
+  }
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kindness_network/authentication_screens/login.dart';
+import 'package:kindness_network/authentication_screens/welcome_screen.dart';
 import 'package:kindness_network/router.dart';
 import 'package:kindness_network/data/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(),
+      home: const WelcomeScreen(),
       onGenerateRoute: (settings) => generateRoute(settings),
     );
   }
