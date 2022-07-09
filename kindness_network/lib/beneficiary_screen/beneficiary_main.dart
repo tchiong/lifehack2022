@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_create_request_screen.dart';
-import 'package:kindness_network/common/constants.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_pending_request_screen.dart';
 
 class BeneficiaryMainScreen extends StatefulWidget {
   static const String routeName = 'beneficiary-screen';
@@ -17,7 +17,7 @@ class _BeneficiaryMainScreenState extends State<BeneficiaryMainScreen> {
 
   List<Widget> pages = [
     const BeneficiaryCreateRequestScreen(),
-    const Center(child: Text("View Upcoming")),
+    const BeneficiaryPendingRequestScreen(),
     const Center(child: Text("View Past")),
   ];
 

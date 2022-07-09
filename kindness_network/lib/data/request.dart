@@ -25,14 +25,24 @@ class Request {
       'requestTime': requestTime,
     };
   }
+
+  static List<Request> sampleRequests = [
+    Request(id: 1, requesterId: 1, jobType: JobType.mental, isAccepted: false, acceptedId: -1, requestTime: DateTime(2022, 7, 10)),
+    Request(id: 2, requesterId: 1, jobType: JobType.housekeeping, isAccepted: true, acceptedId: 2, requestTime: DateTime(2022, 7, 10)),
+  ];
 }
 
 enum JobType {
-  mental('mental'),
-  housekeeping('housekeeping'),
-  mobility('mobility'),
-  literacy('literacy');
+  mental('Mental Wellbeing'),
+  housekeeping('House-keeping'),
+  mobility('Mobility'),
+  literacy('Digital Literacy');
 
   const JobType(this.value);
   final String value;
+
+  @override
+  String toString() {
+    return value;
+  }
 }
