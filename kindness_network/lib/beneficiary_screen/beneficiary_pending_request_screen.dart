@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
 
@@ -22,6 +23,11 @@ class _BeneficiaryPendingRequestScreenState
     super.initState();
   }
 
+  void navigateToRequest(Request request) {
+    Navigator.pushNamed(context, BeneficiaryRequestScreen.routeName,
+        arguments: request);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,39 +48,64 @@ class _BeneficiaryPendingRequestScreenState
               children = snapshot.data!.map((request) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                    decoration: const BoxDecoration(
-                      color: lightBlue,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(defaultRadius)),
-                    ),
-                    width: double.infinity,
-                    height: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text("${request.requestTime}",
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w400)),
-                        Text(request.jobType.toString(),
-                            style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
-                                decoration: TextDecoration.underline)),
-                        request.isAccepted
-                            ? Text(request.requesterId.toString(),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 10),
+                        decoration: const BoxDecoration(
+                          color: lightBlue,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(defaultRadius)),
+                        ),
+                        width: double.infinity,
+                        height: 180,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("${request.requestTime}",
                                 style: const TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.w600))
-                            : const Text("No Volunteer",
-                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.w400)),
+                            Text(request.jobType.toString(),
+                                style: const TextStyle(
                                     fontSize: 24,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.red)),
-                      ],
-                    ),
+                                    fontWeight: FontWeight.w400,
+                                    decoration: TextDecoration.underline)),
+                            request.isAccepted
+                                ? Text(request.requesterId.toString(),
+                                    style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w600))
+                                : const Text("No Volunteer",
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.red)),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: darkBlue,
+                            textStyle: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w500),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(defaultRadius),
+                            ),
+                          ),
+                          onPressed: () {
+                            navigateToRequest(request);
+                          },
+                          child: const Text("View",
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                      )
+                    ],
                   ),
                 );
               }).toList();
