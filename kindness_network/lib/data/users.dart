@@ -43,7 +43,7 @@ class User {
     } else {
       List<dynamic> ids =
           nextIdData.values.toList().map((request) => request['id']).toList();
-      ids.sort();
+      ids.sort(((a, b) => b - a));
       nextId = ids.first + 1;
     }
     return nextId;
@@ -109,6 +109,19 @@ class User {
         specialNeeds: attributes['specialNeeds'],
         phoneNumber: attributes['phoneNumber'],
         language: language);
+  }
+
+  static getUserFromUserId(int id) async {
+    Map? userData = await Firebase().readData('users/');
+    if (userData == null) {
+      return null;
+    } else {
+      List<User> users = List<User>.from(userData.values
+          .toList()
+          .map((userData) => parseJson(userData))
+          .toList());
+      return users.isEmpty ? null : users.first;
+    }
   }
 }
 

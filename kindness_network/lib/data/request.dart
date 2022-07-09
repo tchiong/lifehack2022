@@ -24,7 +24,7 @@ class Request {
     return {
       'id': id,
       'requesterId': requesterId,
-      'jobType': jobType,
+      'jobType': jobType.value,
       'isAccepted': isAccepted,
       'acceptedId': acceptedId,
       'requestTime': requestTime.toString(),
@@ -40,7 +40,7 @@ class Request {
     } else {
       List<dynamic> ids =
           nextIdData.values.toList().map((request) => request['id']).toList();
-      ids.sort();
+      ids.sort(((a, b) => b - a));
       nextId = ids.first + 1;
     }
     return nextId;
@@ -91,7 +91,24 @@ class Request {
         requestTime: DateTime.parse(attributes['requestTime']));
   }
 
-  static Future<List<Request>> getAllActiveRequests() async {
+  static Future<List<Request>> getAllActiveRequestsForBeneficiary(
+      int id) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData == null) {
+      return [];
+    } else {
+      List<Request> requests = List<Request>.from(requestsData.values
+          .toList()
+          .map((requestData) => parseJson(requestData))
+          .where((request) =>
+              request.isAccepted == false && request.requesterId == id)
+          .toList());
+      return requests;
+    }
+  }
+
+  static Future<List<Request>> getAllUnacceptedRequestsForVolunteer(
+      int id) async {
     Map? requestsData = await Firebase().readData('request/');
     if (requestsData == null) {
       return [];

@@ -4,15 +4,26 @@ import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
 
 class BeneficiaryPastRequestsScreen extends StatefulWidget {
-  const BeneficiaryPastRequestsScreen({Key? key}) : super(key: key);
+  const BeneficiaryPastRequestsScreen({Key? key, required this.userId})
+      : super(key: key);
+  final int userId;
 
   @override
-  State<BeneficiaryPastRequestsScreen> createState() => _BeneficiaryPastRequestsScreenState();
+  State<BeneficiaryPastRequestsScreen> createState() =>
+      _BeneficiaryPastRequestsScreenState();
 }
 
-class _BeneficiaryPastRequestsScreenState extends State<BeneficiaryPastRequestsScreen> {
-  final Future<List<Request>> _calculation = Request.getAllActiveRequests();
-  
+class _BeneficiaryPastRequestsScreenState
+    extends State<BeneficiaryPastRequestsScreen> {
+  late Future<List<Request>> _calculation;
+
+  @override
+  void initState() {
+    _calculation =
+        Request.getAllActiveRequestsForBeneficiary(widget.userId); // TODO
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,31 +55,41 @@ class _BeneficiaryPastRequestsScreenState extends State<BeneficiaryPastRequestsS
                     width: double.infinity,
                     height: 180,
                     child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("Blk 38 Oxley Rd #01-00",
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold)),
+                        Text(
+                            DateFormat('yyyy-MM-dd hh:mm')
+                                .format(request.requestTime),
+                            style: const TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.w400)),
+                        Text(request.jobType.toString(),
+                            style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400,
+                                decoration: TextDecoration.underline)),
+                        RichText(
+                            text: const TextSpan(
+                          text: "Age: ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600),
                           children: [
-                            Text("Blk 38 Oxley Rd #01-00",
-                                style: const TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.bold)),
-                            Text(DateFormat('yyyy-MM-dd hh:mm').format(request.requestTime),
-                                style: const TextStyle(
-                                    fontSize: 24, fontWeight: FontWeight.w400)),
-                            Text(request.jobType.toString(),
-                                style: const TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w400,
-                                    decoration: TextDecoration.underline)),
-                            RichText(
-                              text: const TextSpan(
-                                text: "Age: ", 
-                                style: TextStyle(color:Colors.black, fontSize: 24, fontWeight: FontWeight.w600),
-                                children: [
-                                  TextSpan(text: "99", style: TextStyle(color:Colors.black, fontSize: 24, fontWeight: FontWeight.w400),)
-                                ],
-                              )
-                            ),
+                            TextSpan(
+                              text: "99",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w400),
+                            )
                           ],
-                        ),
+                        )),
+                      ],
+                    ),
                   ),
                 );
               }).toList();

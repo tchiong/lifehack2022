@@ -3,14 +3,24 @@ import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
 
 class VolunteerPendingRequestsScreen extends StatefulWidget {
-  const VolunteerPendingRequestsScreen({Key? key}) : super(key: key);
+  const VolunteerPendingRequestsScreen({Key? key, required this.userId})
+      : super(key: key);
+  final int userId;
 
   @override
-  State<VolunteerPendingRequestsScreen> createState() => _VolunteerPendingRequestsScreenState();
+  State<VolunteerPendingRequestsScreen> createState() =>
+      _VolunteerPendingRequestsScreenState();
 }
 
-class _VolunteerPendingRequestsScreenState extends State<VolunteerPendingRequestsScreen> {
-  final Future<List<Request>> _calculation = Request.getAllActiveRequests();
+class _VolunteerPendingRequestsScreenState
+    extends State<VolunteerPendingRequestsScreen> {
+  late Future<List<Request>> _calculation;
+
+  @override
+  void initState() {
+    _calculation = Request.getAllUnacceptedRequestsForVolunteer(widget.userId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

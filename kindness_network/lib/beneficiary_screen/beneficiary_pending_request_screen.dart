@@ -3,7 +3,9 @@ import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
 
 class BeneficiaryPendingRequestScreen extends StatefulWidget {
-  const BeneficiaryPendingRequestScreen({Key? key}) : super(key: key);
+  const BeneficiaryPendingRequestScreen({Key? key, required this.userId})
+      : super(key: key);
+  final int userId;
 
   @override
   State<BeneficiaryPendingRequestScreen> createState() =>
@@ -12,7 +14,13 @@ class BeneficiaryPendingRequestScreen extends StatefulWidget {
 
 class _BeneficiaryPendingRequestScreenState
     extends State<BeneficiaryPendingRequestScreen> {
-  final Future<List<Request>> _calculation = Request.getAllActiveRequests();
+  late final Future<List<Request>> _calculation;
+
+  @override
+  void initState() {
+    _calculation = Request.getAllActiveRequestsForBeneficiary(widget.userId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

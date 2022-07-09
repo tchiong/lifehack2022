@@ -15,19 +15,23 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case BeneficiaryMainScreen.routeName:
       return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => const BeneficiaryMainScreen());
+          builder: (_) => const BeneficiaryMainScreen(
+                userId: 0,
+              )); // TODO Pass Proper UserId
 
     case BeneficiaryRequestScreen.routeName:
       var request = routeSettings.arguments as Request;
       return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => BeneficiaryRequestScreen(request: request));
-    
+
     case VolunteerMainScreen.routeName:
       return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => const VolunteerMainScreen());
-    
+          builder: (_) => const VolunteerMainScreen(
+                userId: 0,
+              )); // TODO Pass Proper UserId
+
     case VolunteerRequestScreen.routeName:
       var request = routeSettings.arguments as Request;
       return MaterialPageRoute(

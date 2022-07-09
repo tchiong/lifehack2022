@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
-import 'package:kindness_network/data/firebase.dart';
 import 'package:kindness_network/data/request.dart';
-import 'package:kindness_network/data/users.dart';
 
 class BeneficiaryRequestScreen extends StatefulWidget {
   static const String routeName = '/beneficiary-request';
@@ -17,14 +15,6 @@ class BeneficiaryRequestScreen extends StatefulWidget {
 }
 
 class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
-  // Should be passed around from login page
-  late int userId;
-  @override
-  void initState() {
-    userId = 0;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +46,8 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                         const Text("Request Raised:",
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w600)),
-                        const Text("09 Jul 22, 17:00",
+                        const Text(
+                            "09 Jul 22, 17:00", // Change to request.requestTime
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w400)),
                         Text(widget.request.jobType.toString(),
@@ -86,7 +77,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       Text("Assigned Volunteer:",
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.w600)),
-                      Text("Pending",
+                      Text("Pending", // Change to request.acceptedId's name
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w400)),
                       SizedBox(
@@ -116,7 +107,9 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                         borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // Prompt with acceptedId Phone Number
+                    },
                     child: const Text("Call",
                         style: TextStyle(color: Colors.black)),
                   ),
@@ -136,7 +129,9 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                         borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      // Remove Request
+                    },
                     child: const Text("Cancel",
                         style: TextStyle(color: Colors.black)),
                   ),
@@ -157,15 +152,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      int id = await Request.generateRequestId();
-                      Request request = Request(
-                          id: id,
-                          requesterId: userId,
-                          jobType: widget.request.jobType,
-                          isAccepted: false,
-                          acceptedId: -1,
-                          requestTime: DateTime.now());
-                      Firebase().pushDataToList('request/', request.toJson());
+                      // Mark Request as complete and update firebase
                     },
                     child: const Text("Complete",
                         style: TextStyle(color: Colors.black)),
