@@ -64,7 +64,9 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
             ),
             child: Column(
               children: [
-                const LanguageSelector(),
+                LanguageSelector(
+                  userId: widget.request.requesterId,
+                ),
                 Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 10),

@@ -111,6 +111,19 @@ class User {
         language: language);
   }
 
+  static Future<List<User>> getAllUsers() async {
+    Map? usersData = await Firebase().readData('user/');
+    if (usersData == null) {
+      return [];
+    } else {
+      List<User> users = List<User>.from(usersData.values
+          .toList()
+          .map((userData) => parseJson(userData))
+          .toList());
+      return users;
+    }
+  }
+
   static Future<User?> getUserFromUserId(int id) async {
     Map? userData = await Firebase().readData('user/');
     if (userData == null) {
@@ -119,6 +132,7 @@ class User {
       List<User> users = List<User>.from(userData.values
           .toList()
           .map((userData) => parseJson(userData))
+          .where((user) => user.id == id)
           .toList());
       return users.isEmpty ? null : users.first;
     }

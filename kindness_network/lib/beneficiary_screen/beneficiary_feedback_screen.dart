@@ -40,7 +40,9 @@ class _BeneficiaryFeedbackScreenState extends State<BeneficiaryFeedbackScreen> {
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
             child: Column(
               children: [
-                const LanguageSelector(),
+                LanguageSelector(
+                  userId: widget.request.requesterId,
+                ),
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 10),

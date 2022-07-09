@@ -26,7 +26,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const LanguageSelector(),
+                  const LanguageSelector(
+                      userId: -1), // TODO not tied to any user
                   const SizedBox(
                     height: 120,
                   ),

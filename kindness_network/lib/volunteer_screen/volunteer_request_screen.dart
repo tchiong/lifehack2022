@@ -4,6 +4,8 @@ import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 import 'package:kindness_network/data/firebase.dart';
 import 'package:kindness_network/data/request.dart';
+import 'package:kindness_network/data/users.dart';
+import 'package:kindness_network/volunteer_screen/volunteer_main.dart';
 
 class VolunteerRequestScreen extends StatefulWidget {
   static const String routeName = 'volunteer-request';
@@ -16,10 +18,39 @@ class VolunteerRequestScreen extends StatefulWidget {
 }
 
 class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
-  late int userId;
+  late Future<User?> _requesterUser;
+
+  void navigateToVolunteerScreen() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, VolunteerMainScreen.routeName, (_) => false);
+  }
+
+  showPhoneDialog() async {
+    User? requesterUser =
+        await User.getUserFromUserId(widget.request.requesterId);
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: widget.request.requesterId == -1
+            ? const Text('Not Accepted')
+            : const Text('Accepted'),
+        content: widget.request.requesterId == -1
+            ? const Text(
+                'Please give volunteers some time to accept the request')
+            : Text(requesterUser?.phoneNumber ?? ''),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void initState() {
-    userId = 0;
+    _requesterUser = User.getUserFromUserId(widget.request.requesterId);
     super.initState();
   }
 
@@ -36,7 +67,9 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
             child: Column(
               children: [
-                const LanguageSelector(),
+                LanguageSelector(
+                  userId: widget.request.acceptedId,
+                ),
                 Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -54,8 +87,8 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                         const Text("Request Raised:",
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w600)),
-                        const Text("09 Jul 22, 17:00",
-                            style: TextStyle(
+                        Text(widget.request.requestTime.toString(),
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w400)),
                         Text(widget.request.jobType.toString(),
                             style: const TextStyle(
@@ -77,21 +110,33 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                   ),
                   width: double.infinity,
                   height: 100,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text("Special Requirements:",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w600)),
-                      Text("TENG CHIONG IS GAY",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400)),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
+                  child: FutureBuilder<User?>(
+                      future: _requesterUser,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<User?> snapshot) {
+                        User? user;
+                        if (snapshot.hasData) {
+                          user = snapshot.data;
+                        } else {
+                          user = null;
+                        }
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Text("Special Requirements:",
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.w600)),
+                            Text(user == null ? '' : user.specialNeeds,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w400)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        );
+                      }),
+                  //
                 ),
                 const SizedBox(
                   height: 10,
@@ -109,7 +154,9 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                         borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showPhoneDialog();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -137,7 +184,10 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                         borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Request.removeRequestAcceptedId(widget.request);
+                      navigateToVolunteerScreen();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -166,16 +216,8 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      int id = await Request.generateRequestId();
-                      Request request = Request(
-                          id: id,
-                          requesterId: userId,
-                          jobType: widget.request.jobType,
-                          isAccepted: false,
-                          acceptedId: -1,
-                          requestTime: DateTime.now(),
-                          isCompleted: false);
-                      Firebase().pushDataToList('request/', request.toJson());
+                      Request.completeRequest(widget.request);
+                      navigateToVolunteerScreen();
                     }, // TODO
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

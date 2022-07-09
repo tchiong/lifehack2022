@@ -39,7 +39,7 @@ class _UserTypeSelectorScreenState extends State<UserTypeSelectorScreen> {
           padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: Column(
             children: [
-              const LanguageSelector(),
+              const LanguageSelector(userId: -1), // TODO not tied to any user
               const Text(
                 "Are you a...",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),

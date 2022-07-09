@@ -4,6 +4,8 @@ import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
 import 'package:kindness_network/volunteer_screen/volunteer_request_screen.dart';
 
+import '../data/users.dart';
+
 class VolunteerViewRequestsScreen extends StatefulWidget {
   const VolunteerViewRequestsScreen({Key? key, required this.userId})
       : super(key: key);
@@ -17,10 +19,12 @@ class VolunteerViewRequestsScreen extends StatefulWidget {
 class _VolunteerViewRequestsScreenState
     extends State<VolunteerViewRequestsScreen> {
   late Future<List<Request>> _calculation;
+  late Future<List<User>> _users;
 
   @override
   void initState() {
     _calculation = Request.getAllUnacceptedRequestsForVolunteer(widget.userId);
+    _users = User.getAllUsers();
     super.initState();
   }
 
@@ -50,6 +54,7 @@ class _VolunteerViewRequestsScreenState
             ),
             TextButton(
               onPressed: () {
+                Request.acceptRequest(request, widget.userId);
                 Navigator.pop(context, true);
               },
               child: const Text('Yes'),
@@ -75,18 +80,25 @@ class _VolunteerViewRequestsScreenState
           title: const Text("Upcoming Requests"),
           centerTitle: true,
         ),
-        body: FutureBuilder<List<Request>>(
-          future: _calculation, // a previously-obtained Future<String> or null
+        body: FutureBuilder<List<dynamic>>(
+          future: Future.wait([
+            _calculation,
+            _users
+          ]), // a previously-obtained Future<String> or null
           builder:
-              (BuildContext context, AsyncSnapshot<List<Request>> snapshot) {
+              (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
             List<Widget> children;
             if (snapshot.hasData) {
-              if (snapshot.data!.isEmpty) {
+              List<Request> calculation = snapshot.data?[0];
+              List<User> users = snapshot.data?[1];
+              if (calculation.isEmpty) {
                 children = const <Widget>[
                   Center(child: Text("No Requests yet!"))
                 ];
               } else {
-                children = snapshot.data!.map((request) {
+                children = calculation.map((request) {
+                  User requesterUser = users
+                      .firstWhere((user) => user.id == request.requesterId);
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Column(
@@ -105,8 +117,8 @@ class _VolunteerViewRequestsScreenState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const Text("Blk 38 Oxley Rd #01-00",
-                                  style: TextStyle(
+                              Text(requesterUser.address,
+                                  style: const TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold)),
                               Text(
@@ -121,16 +133,16 @@ class _VolunteerViewRequestsScreenState
                                       fontWeight: FontWeight.w400,
                                       decoration: TextDecoration.underline)),
                               RichText(
-                                  text: const TextSpan(
+                                  text: TextSpan(
                                 text: "Age: ",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 24,
                                     fontWeight: FontWeight.w600),
                                 children: [
                                   TextSpan(
-                                    text: "99",
-                                    style: TextStyle(
+                                    text: requesterUser.age.toString(),
+                                    style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 24,
                                         fontWeight: FontWeight.w400),

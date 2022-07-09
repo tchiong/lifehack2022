@@ -100,7 +100,9 @@ class _BeneficiaryCreateRequestScreenState
             padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
             child: Column(
               children: [
-                const LanguageSelector(),
+                LanguageSelector(
+                  userId: widget.userId,
+                ),
                 const SizedBox(
                   height: 5,
                 ),

@@ -3,7 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
+import 'package:kindness_network/data/users.dart';
 import 'package:kindness_network/volunteer_screen/volunteer_main.dart';
+
+import '../data/firebase.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -39,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: Column(
             children: [
-              const LanguageSelector(),
+              const LanguageSelector(userId: -1), // TODO not tied to any user
               const SizedBox(height: 20),
               const Text("Log in with Singpass",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
@@ -69,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     navigateToMainScreen(0);
                   },
-                  child: const Text("Test Acc 1",
+                  child: const Text("Beneficiary Test Acc 1",
                       style: TextStyle(color: Colors.black)),
                 ),
               ),
@@ -89,7 +92,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     navigateToMainScreen(1);
                   },
-                  child: const Text("Test Acc 2",
+                  child: const Text("Beneficiary Test Acc 2",
+                      style: TextStyle(color: Colors.black)),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: darkBlue,
+                    textStyle: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w500),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(defaultRadius),
+                    ),
+                  ),
+                  onPressed: () {
+                    navigateToMainScreen(2);
+                  },
+                  child: const Text("Volunteer Test Acc 1",
                       style: TextStyle(color: Colors.black)),
                 ),
               ),

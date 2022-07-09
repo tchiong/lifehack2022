@@ -147,6 +147,24 @@ class Request {
     }
   }
 
+  static Future<List<Request>> getAllAcceptedRequestsForVolunteer(
+      int id) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData == null) {
+      return [];
+    } else {
+      List<Request> requests = List<Request>.from(requestsData.values
+          .toList()
+          .map((requestData) => parseJson(requestData))
+          .where((request) =>
+              request.isAccepted == true &&
+              request.isCompleted == false &&
+              request.acceptedId == id)
+          .toList());
+      return requests;
+    }
+  }
+
   static Future<List<Request>> getAllUnacceptedRequestsForVolunteer(
       int id) async {
     Map? requestsData = await Firebase().readData('request/');
@@ -156,9 +174,28 @@ class Request {
       List<Request> requests = List<Request>.from(requestsData.values
           .toList()
           .map((requestData) => parseJson(requestData))
-          .where((request) => request.isAccepted == false)
+          .where((request) =>
+              request.isAccepted == false && request.isCompleted == false)
           .toList());
       return requests;
+    }
+  }
+
+  static void acceptRequest(Request request, int userId) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData != null) {
+      String? key;
+      List<String> pointer = List<String>.from(requestsData.keys.toList());
+      for (String string in pointer) {
+        if (parseJson(requestsData[string]).id == request.id) {
+          key = string;
+        }
+      }
+      if (key != null) {
+        request.isAccepted = true;
+        request.acceptedId = userId;
+        Firebase().pushData('request/$key', request.toJson());
+      }
     }
   }
 
@@ -174,6 +211,24 @@ class Request {
       }
       if (key != null) {
         request.isCompleted = true;
+        Firebase().pushData('request/$key', request.toJson());
+      }
+    }
+  }
+
+  static void removeRequestAcceptedId(Request request) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData != null) {
+      String? key;
+      List<String> pointer = List<String>.from(requestsData.keys.toList());
+      for (String string in pointer) {
+        if (parseJson(requestsData[string]).id == request.id) {
+          key = string;
+        }
+      }
+      if (key != null) {
+        request.isAccepted = false;
+        request.acceptedId = -1;
         Firebase().pushData('request/$key', request.toJson());
       }
     }

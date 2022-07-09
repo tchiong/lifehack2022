@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
 
+import '../data/users.dart';
+
 class VolunteerPastRequestsScreen extends StatefulWidget {
   const VolunteerPastRequestsScreen({Key? key, required this.userId})
       : super(key: key);
@@ -16,10 +18,12 @@ class VolunteerPastRequestsScreen extends StatefulWidget {
 class _VolunteerPastRequestsScreenState
     extends State<VolunteerPastRequestsScreen> {
   late Future<List<Request>> _calculation;
+  late Future<List<User>> _users;
 
   @override
   void initState() {
     _calculation = Request.getAllCompletedRequestsForVolunteer(widget.userId);
+    _users = User.getAllUsers();
     super.initState();
   }
 
@@ -30,17 +34,24 @@ class _VolunteerPastRequestsScreenState
         title: const Text("Past Requests"),
         centerTitle: true,
       ),
-      body: FutureBuilder<List<Request>>(
-        future: _calculation, // a previously-obtained Future<String> or null
-        builder: (BuildContext context, AsyncSnapshot<List<Request>> snapshot) {
+      body: FutureBuilder<List<dynamic>>(
+        future: Future.wait([
+          _calculation,
+          _users
+        ]), // a previously-obtained Future<String> or null
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           List<Widget> children;
           if (snapshot.hasData) {
-            if (snapshot.data!.isEmpty) {
+            List<Request> calculation = snapshot.data?[0];
+            List<User> users = snapshot.data?[1];
+            if (calculation.isEmpty) {
               children = const <Widget>[
                 Center(child: Text("No Requests Completed yet!"))
               ];
             } else {
-              children = snapshot.data!.map((request) {
+              children = calculation.map((request) {
+                User requesterUser =
+                    users.firstWhere((user) => user.id == request.requesterId);
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Container(
@@ -57,8 +68,8 @@ class _VolunteerPastRequestsScreenState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Text("Blk 38 Oxley Rd #01-00",
-                            style: TextStyle(
+                        Text(requesterUser.address,
+                            style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold)),
                         Text(
                             DateFormat('yyyy-MM-dd hh:mm')
@@ -71,16 +82,16 @@ class _VolunteerPastRequestsScreenState
                                 fontWeight: FontWeight.w400,
                                 decoration: TextDecoration.underline)),
                         RichText(
-                            text: const TextSpan(
+                            text: TextSpan(
                           text: "Age: ",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 24,
                               fontWeight: FontWeight.w600),
                           children: [
                             TextSpan(
-                              text: "99",
-                              style: TextStyle(
+                              text: requesterUser.age.toString(),
+                              style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400),

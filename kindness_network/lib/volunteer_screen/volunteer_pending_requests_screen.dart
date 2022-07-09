@@ -19,7 +19,7 @@ class _VolunteerPendingRequestsScreenState
 
   @override
   void initState() {
-    _calculation = Request.getAllUnacceptedRequestsForVolunteer(widget.userId);
+    _calculation = Request.getAllAcceptedRequestsForVolunteer(widget.userId);
     super.initState();
   }
 
