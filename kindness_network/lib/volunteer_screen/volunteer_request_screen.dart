@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 import 'package:kindness_network/data/firebase.dart';
@@ -75,26 +76,20 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                         BorderRadius.all(Radius.circular(defaultRadius)),
                   ),
                   width: double.infinity,
-                  height: 180,
+                  height: 100,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: const [
-                      Text("Assigned Volunteer:",
+                      Text("Special Requirements:",
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.w600)),
-                      Text("Pending",
+                      Text("TENG CHIONG IS GAY",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w400)),
                       SizedBox(
                         height: 10,
                       ),
-                      Text("Estimated Arrival:",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w600)),
-                      Text("Pending",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400)),
                     ],
                   ),
                 ),
@@ -106,6 +101,7 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                   height: 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       primary: darkBlue,
                       textStyle: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.w500),
@@ -114,8 +110,15 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                       ),
                     ),
                     onPressed: () {},
-                    child: const Text("Call",
-                        style: TextStyle(color: Colors.black)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Call",
+                            style: TextStyle(color: Colors.black)),
+                        SvgPicture.asset('assets/icons/phone-call.svg',
+                            height: 80, width: 80),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -126,6 +129,7 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                   height: 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       primary: red,
                       textStyle: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.w500),
@@ -134,8 +138,15 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                       ),
                     ),
                     onPressed: () {},
-                    child: const Text("Cancel",
-                        style: TextStyle(color: Colors.black)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Cancel",
+                            style: TextStyle(color: Colors.black)),
+                        SvgPicture.asset('assets/icons/cancel.svg',
+                            height: 80, width: 80),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -146,6 +157,7 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                   height: 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       primary: Colors.blue,
                       textStyle: const TextStyle(
                           fontSize: 40, fontWeight: FontWeight.w500),
@@ -165,8 +177,15 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                           isCompleted: false);
                       Firebase().pushDataToList('request/', request.toJson());
                     }, // TODO
-                    child: const Text("Complete",
-                        style: TextStyle(color: Colors.black)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Complete",
+                            style: TextStyle(color: Colors.black)),
+                        SvgPicture.asset('assets/icons/tick.svg',
+                            height: 80, width: 80),
+                      ],
+                    ),
                   ),
                 ),
               ],
