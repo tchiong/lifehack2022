@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kindness_network/authentication_screens/user_type_selector_screen.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
@@ -30,12 +31,16 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               const LanguageSelector(),
-              const SizedBox(
-                height: 75,
-              ),
               const SizedBox(height: 20),
               const Text("Log in with Singpass",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+              const SizedBox(height: 10),
+              SizedBox(
+                  height: 260,
+                  width: double.infinity,
+                  child: SvgPicture.asset(
+                    'assets/icons/singpass.svg',
+                  )),
               const SizedBox(height: 20),
               const Text("Tap the QR code to log in with Singpass",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
