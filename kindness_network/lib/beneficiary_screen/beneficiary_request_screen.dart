@@ -182,6 +182,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                     ),
                     onPressed: () async {
                       Request.completeRequest(widget.request);
+                      navigateToBeneficiaryScreen();
                     },
                     child: const Text("Complete",
                         style: TextStyle(color: Colors.black)),

@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
 
+import '../data/users.dart';
+
 class BeneficiaryPastRequestsScreen extends StatefulWidget {
   const BeneficiaryPastRequestsScreen({Key? key, required this.userId})
       : super(key: key);
@@ -16,10 +18,12 @@ class BeneficiaryPastRequestsScreen extends StatefulWidget {
 class _BeneficiaryPastRequestsScreenState
     extends State<BeneficiaryPastRequestsScreen> {
   late Future<List<Request>> _calculation;
+  late Future<User?> _user;
 
   @override
   void initState() {
     _calculation = Request.getAllCompletedRequestsForBeneficiary(widget.userId);
+    _user = User.getUserFromUserId(widget.userId);
     super.initState();
   }
 
@@ -30,9 +34,12 @@ class _BeneficiaryPastRequestsScreenState
         title: const Text("Past Requests"),
         centerTitle: true,
       ),
-      body: FutureBuilder<List<Request>>(
-        future: _calculation, // a previously-obtained Future<String> or null
-        builder: (BuildContext context, AsyncSnapshot<List<Request>> snapshot) {
+      body: FutureBuilder<List<dynamic>>(
+        future: Future.wait([
+          _calculation,
+          _user
+        ]), // a previously-obtained Future<String> or null
+        builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           List<Widget> children;
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
@@ -40,7 +47,9 @@ class _BeneficiaryPastRequestsScreenState
                 Center(child: Text("No Requests Completed yet!"))
               ];
             } else {
-              children = snapshot.data!.map((request) {
+              List<Request> calculation = snapshot.data?[0];
+              User? user = snapshot.data?[1];
+              children = calculation.map((request) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Container(
@@ -54,41 +63,36 @@ class _BeneficiaryPastRequestsScreenState
                     width: double.infinity,
                     height: 180,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const Text("Blk 38 Oxley Rd #01-00",
-                            style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold)),
-                        Text(
-                            DateFormat('yyyy-MM-dd hh:mm')
-                                .format(request.requestTime),
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w400)),
-                        Text(request.jobType.toString(),
-                            style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
-                                decoration: TextDecoration.underline)),
-                        RichText(
-                            text: const TextSpan(
-                          text: "Age: ",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600),
-                          children: [
-                            TextSpan(
-                              text: "99",
-                              style: TextStyle(
-                                  color: Colors.black,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                              DateFormat('yyyy-MM-dd hh:mm')
+                                  .format(request.requestTime),
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.w400)),
+                          Text(request.jobType.toString(),
+                              style: const TextStyle(
                                   fontSize: 24,
-                                  fontWeight: FontWeight.w400),
-                            )
-                          ],
-                        )),
-                      ],
-                    ),
+                                  fontWeight: FontWeight.w400,
+                                  decoration: TextDecoration.underline)),
+                          RichText(
+                              text: TextSpan(
+                                  text: "Age: ",
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600),
+                                  children: [
+                                TextSpan(
+                                  text: user == null ? '' : user.age.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w400),
+                                )
+                              ]))
+                        ]),
                   ),
                 );
               }).toList();

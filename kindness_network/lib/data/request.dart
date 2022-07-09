@@ -113,21 +113,6 @@ class Request {
     }
   }
 
-  static Future<List<Request>> getAllUnacceptedRequestsForVolunteer(
-      int id) async {
-    Map? requestsData = await Firebase().readData('request/');
-    if (requestsData == null) {
-      return [];
-    } else {
-      List<Request> requests = List<Request>.from(requestsData.values
-          .toList()
-          .map((requestData) => parseJson(requestData))
-          .where((request) => request.isAccepted == false)
-          .toList());
-      return requests;
-    }
-  }
-
   static Future<List<Request>> getAllCompletedRequestsForBeneficiary(
       int id) async {
     Map? requestsData = await Firebase().readData('request/');
@@ -144,6 +129,37 @@ class Request {
     }
   }
 
+  static Future<List<Request>> getAllCompletedRequestsForVolunteer(
+      int id) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData == null) {
+      return [];
+    } else {
+      List<Request> requests = List<Request>.from(requestsData.values
+          .toList()
+          .map((requestData) => parseJson(requestData))
+          .where((request) =>
+              request.isCompleted == true && request.acceptedId == id)
+          .toList());
+      return requests;
+    }
+  }
+
+  static Future<List<Request>> getAllUnacceptedRequestsForVolunteer(
+      int id) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData == null) {
+      return [];
+    } else {
+      List<Request> requests = List<Request>.from(requestsData.values
+          .toList()
+          .map((requestData) => parseJson(requestData))
+          .where((request) => request.isAccepted == false)
+          .toList());
+      return requests;
+    }
+  }
+
   static void completeRequest(Request request) async {
     Map? requestsData = await Firebase().readData('request/');
     if (requestsData != null) {
@@ -155,6 +171,7 @@ class Request {
         }
       }
       if (key != null) {
+        request.isCompleted = true;
         Firebase().pushData('request/$key', request.toJson());
       }
     }

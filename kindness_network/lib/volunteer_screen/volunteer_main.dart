@@ -27,7 +27,6 @@ class _VolunteerMainScreenState extends State<VolunteerMainScreen> {
       const Center(child: Text("upcoming")),
       const Center(child: Text("past")),
     ];
-    // TODO: implement initState
     super.initState();
   }
 
