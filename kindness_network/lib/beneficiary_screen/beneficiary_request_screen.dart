@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:kindness_network/beneficiary_screen/beneficiary_create_request_screen.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_feedback_screen.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
@@ -206,7 +205,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      Request.completeRequest(widget.request);
+                      Request.completeRequestBenficiary(widget.request);
                       navigateToBeneficiaryFeedbackScreen();
                     },
                     child: Row(

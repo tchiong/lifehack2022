@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
-import 'package:kindness_network/data/firebase.dart';
 import 'package:kindness_network/data/request.dart';
 import 'package:kindness_network/data/users.dart';
 import 'package:kindness_network/volunteer_screen/volunteer_main.dart';
@@ -216,9 +215,9 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      Request.completeRequest(widget.request);
+                      Request.completeRequestVolunteer(widget.request);
                       navigateToVolunteerScreen();
-                    }, // TODO
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

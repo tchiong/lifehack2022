@@ -7,7 +7,8 @@ class Request {
   bool isAccepted;
   int acceptedId;
   DateTime requestTime;
-  bool isCompleted;
+  bool isCompletedAcceptee;
+  bool isCompletedBeneficiary;
   double rating;
   String feedback;
 
@@ -22,7 +23,8 @@ class Request {
       required this.isAccepted,
       required this.acceptedId,
       required this.requestTime,
-      required this.isCompleted,
+      required this.isCompletedAcceptee,
+      required this.isCompletedBeneficiary,
       required this.rating,
       required this.feedback});
 
@@ -34,7 +36,8 @@ class Request {
       'isAccepted': isAccepted,
       'acceptedId': acceptedId,
       'requestTime': requestTime.toString(),
-      'isCompleted': isCompleted,
+      'isCompletedAcceptee': isCompletedAcceptee,
+      'isCompletedBeneficiary': isCompletedBeneficiary,
       'rating': rating,
       'feedback': feedback,
     };
@@ -63,7 +66,8 @@ class Request {
       'isAccepted': '',
       'acceptedId': '',
       'requestTime': '',
-      'isCompleted': '',
+      'isCompletedAcceptee': '',
+      'isCompletedBeneficiary': '',
       'rating': '',
       'feedback': '',
     };
@@ -101,7 +105,8 @@ class Request {
         isAccepted: attributes['isAccepted'],
         acceptedId: attributes['acceptedId'],
         requestTime: DateTime.parse(attributes['requestTime']),
-        isCompleted: attributes['isCompleted'],
+        isCompletedAcceptee: attributes['isCompletedAcceptee'],
+        isCompletedBeneficiary: attributes['isCompletedBeneficiary'],
         rating: (attributes['rating'] as int).toDouble(),
         feedback: attributes['feedback']);
   }
@@ -117,9 +122,7 @@ class Request {
           .toList()
           .map((requestData) => parseJson(requestData))
           .where((request) =>
-              request.isAccepted == false &&
-              request.isCompleted == false &&
-              request.requesterId == id)
+              request.isCompletedAcceptee == false && request.requesterId == id)
           .toList());
       return requests;
     }
@@ -135,7 +138,9 @@ class Request {
           .toList()
           .map((requestData) => parseJson(requestData))
           .where((request) =>
-              request.isCompleted == true && request.requesterId == id)
+              request.isCompletedBeneficiary == true &&
+              request.isCompletedAcceptee == true &&
+              request.requesterId == id)
           .toList());
       return requests;
     }
@@ -151,7 +156,7 @@ class Request {
           .toList()
           .map((requestData) => parseJson(requestData))
           .where((request) =>
-              request.isCompleted == true && request.acceptedId == id)
+              request.isCompletedAcceptee == true && request.acceptedId == id)
           .toList());
       return requests;
     }
@@ -168,7 +173,7 @@ class Request {
           .map((requestData) => parseJson(requestData))
           .where((request) =>
               request.isAccepted == true &&
-              request.isCompleted == false &&
+              request.isCompletedAcceptee == false &&
               request.acceptedId == id)
           .toList());
       return requests;
@@ -185,7 +190,9 @@ class Request {
           .toList()
           .map((requestData) => parseJson(requestData))
           .where((request) =>
-              request.isAccepted == false && request.isCompleted == false)
+              request.isAccepted == false &&
+              request.isCompletedAcceptee == false &&
+              request.isCompletedBeneficiary == false)
           .toList());
       return requests;
     }
@@ -209,7 +216,7 @@ class Request {
     }
   }
 
-  static void completeRequest(Request request) async {
+  static void completeRequestBenficiary(Request request) async {
     Map? requestsData = await Firebase().readData('request/');
     if (requestsData != null) {
       String? key;
@@ -220,7 +227,24 @@ class Request {
         }
       }
       if (key != null) {
-        request.isCompleted = true;
+        request.isCompletedBeneficiary = true;
+        Firebase().pushData('request/$key', request.toJson());
+      }
+    }
+  }
+
+  static void completeRequestVolunteer(Request request) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData != null) {
+      String? key;
+      List<String> pointer = List<String>.from(requestsData.keys.toList());
+      for (String string in pointer) {
+        if (parseJson(requestsData[string]).id == request.id) {
+          key = string;
+        }
+      }
+      if (key != null) {
+        request.isCompletedAcceptee = true;
         Firebase().pushData('request/$key', request.toJson());
       }
     }

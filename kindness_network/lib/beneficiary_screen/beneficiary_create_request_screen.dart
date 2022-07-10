@@ -25,10 +25,10 @@ class _BeneficiaryCreateRequestScreenState
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = const TimeOfDay(hour: 12, minute: 0);
   late Request userRequest;
-  Lang? userLang; //TODO: Get this at the start
+  late Future<Lang?> _userLang;
 
-  void refreshLang() async {
-    userLang = await User.getUserFromUserId(widget.userId).then(
+  Future<Lang?> refreshLang() async {
+    Lang? lang = await User.getUserFromUserId(widget.userId).then(
       (value) {
         if (value != null) {
           return value.language;
@@ -37,6 +37,7 @@ class _BeneficiaryCreateRequestScreenState
         }
       },
     );
+    return lang;
   }
 
   void navigateToRequest(String requestType) {
@@ -100,12 +101,19 @@ class _BeneficiaryCreateRequestScreenState
       isAccepted: false,
       acceptedId: -1,
       requestTime: date,
-      isCompleted: false,
+      isCompletedAcceptee: false,
+      isCompletedBeneficiary: false,
       rating: -1,
       feedback: '',
     );
     Firebase().pushDataToList('request/', request.toJson());
     return request;
+  }
+
+  @override
+  void initState() {
+    _userLang = refreshLang();
+    super.initState();
   }
 
   @override
@@ -124,12 +132,24 @@ class _BeneficiaryCreateRequestScreenState
                 const SizedBox(
                   height: 5,
                 ),
-                Text(
-                    userLang == Lang.ch
-                        ? selected.toChinese()
-                        : selected.toString(),
-                    style: const TextStyle(
-                        fontSize: 28, fontWeight: FontWeight.w600)),
+                FutureBuilder(
+                    future: _userLang,
+                    builder:
+                        (BuildContext context, AsyncSnapshot<Lang?> snapshot) {
+                      if (snapshot.hasData) {
+                        Lang? userLang = snapshot.data;
+                        return Text(
+                            userLang == Lang.ch
+                                ? selected.toChinese()
+                                : selected.toString(),
+                            style: const TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.w600));
+                      } else {
+                        return Text(selected.toString(),
+                            style: const TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.w600));
+                      }
+                    }),
                 const SizedBox(
                   height: 10,
                 ),
@@ -164,12 +184,26 @@ class _BeneficiaryCreateRequestScreenState
                                 height: 70,
                                 width: 70,
                               ),
-                              Text(
-                                  userLang == Lang.ch
-                                      ? JobType.mental.toChinese()
-                                      : JobType.mental.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(color: Colors.black)),
+                              FutureBuilder(
+                                  future: _userLang,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<Lang?> snapshot) {
+                                    if (snapshot.hasData) {
+                                      Lang? userLang = snapshot.data;
+                                      return Text(
+                                          userLang == Lang.ch
+                                              ? JobType.mental.toChinese()
+                                              : JobType.mental.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.black));
+                                    } else {
+                                      return Text(selected.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.black));
+                                    }
+                                  }),
                             ],
                           ),
                         ),
@@ -198,12 +232,26 @@ class _BeneficiaryCreateRequestScreenState
                                 height: 70,
                                 width: 70,
                               ),
-                              Text(
-                                  userLang == Lang.ch
-                                      ? JobType.housekeeping.toChinese()
-                                      : JobType.housekeeping.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(color: Colors.black)),
+                              FutureBuilder(
+                                  future: _userLang,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<Lang?> snapshot) {
+                                    if (snapshot.hasData) {
+                                      Lang? userLang = snapshot.data;
+                                      return Text(
+                                          userLang == Lang.ch
+                                              ? JobType.housekeeping.toChinese()
+                                              : JobType.housekeeping.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.black));
+                                    } else {
+                                      return Text(selected.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.black));
+                                    }
+                                  }),
                             ],
                           ),
                         ),
@@ -234,12 +282,26 @@ class _BeneficiaryCreateRequestScreenState
                                 height: 70,
                                 width: 70,
                               ),
-                              Text(
-                                  userLang == Lang.ch
-                                      ? JobType.mobility.toChinese()
-                                      : JobType.mobility.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(color: Colors.black)),
+                              FutureBuilder(
+                                  future: _userLang,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<Lang?> snapshot) {
+                                    if (snapshot.hasData) {
+                                      Lang? userLang = snapshot.data;
+                                      return Text(
+                                          userLang == Lang.ch
+                                              ? JobType.mobility.toChinese()
+                                              : JobType.mobility.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.black));
+                                    } else {
+                                      return Text(selected.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.black));
+                                    }
+                                  }),
                             ],
                           ),
                         ),
@@ -268,12 +330,26 @@ class _BeneficiaryCreateRequestScreenState
                                 height: 70,
                                 width: 70,
                               ),
-                              Text(
-                                  userLang == Lang.ch
-                                      ? JobType.literacy.toChinese()
-                                      : JobType.literacy.toString(),
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(color: Colors.black)),
+                              FutureBuilder(
+                                  future: _userLang,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<Lang?> snapshot) {
+                                    if (snapshot.hasData) {
+                                      Lang? userLang = snapshot.data;
+                                      return Text(
+                                          userLang == Lang.ch
+                                              ? JobType.literacy.toChinese()
+                                              : JobType.literacy.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.black));
+                                    } else {
+                                      return Text(selected.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                              color: Colors.black));
+                                    }
+                                  }),
                             ],
                           ),
                         ),
@@ -286,11 +362,26 @@ class _BeneficiaryCreateRequestScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          userLang == Lang.ch ? '日期' : "Date: ",
-                          style: const TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.w400),
-                        ),
+                        FutureBuilder(
+                            future: _userLang,
+                            builder: (BuildContext context,
+                                AsyncSnapshot<Lang?> snapshot) {
+                              if (snapshot.hasData) {
+                                Lang? userLang = snapshot.data;
+                                return Text(
+                                    userLang == Lang.ch ? '日期' : "Date: ",
+                                    style: const TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w400));
+                              } else {
+                                return const Text(
+                                  "Date: ",
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w400),
+                                );
+                              }
+                            }),
                         Text(
                           DateFormat('yyyy-MM-dd').format(selectedDate),
                           style: const TextStyle(
@@ -300,22 +391,54 @@ class _BeneficiaryCreateRequestScreenState
                           onPressed: () {
                             _selectDate(context);
                           },
-                          child: Text(
-                            userLang == Lang.ch ? '选择日期' : "Select Date",
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w400),
-                          ),
+                          child: FutureBuilder(
+                              future: _userLang,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<Lang?> snapshot) {
+                                if (snapshot.hasData) {
+                                  Lang? userLang = snapshot.data;
+                                  return Text(
+                                      userLang == Lang.ch
+                                          ? '选择日期'
+                                          : "Select Date",
+                                      style: const TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w400));
+                                } else {
+                                  return const Text(
+                                    "Select Date",
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w400),
+                                  );
+                                }
+                              }),
                         ),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          userLang == Lang.ch ? '时间' : "Time: ",
-                          style: const TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.w400),
-                        ),
+                        FutureBuilder(
+                            future: _userLang,
+                            builder: (BuildContext context,
+                                AsyncSnapshot<Lang?> snapshot) {
+                              if (snapshot.hasData) {
+                                Lang? userLang = snapshot.data;
+                                return Text(
+                                    userLang == Lang.ch ? '时间' : "Time: ",
+                                    style: const TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w400));
+                              } else {
+                                return const Text(
+                                  "Time: ",
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w400),
+                                );
+                              }
+                            }),
                         Text(
                           selectedTime.format(context),
                           style: const TextStyle(
@@ -325,11 +448,28 @@ class _BeneficiaryCreateRequestScreenState
                           onPressed: () {
                             _selectTime();
                           },
-                          child: Text(
-                            userLang == Lang.ch ? '选择时间' : "Select Time",
-                            style: const TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.w400),
-                          ),
+                          child: FutureBuilder(
+                              future: _userLang,
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<Lang?> snapshot) {
+                                if (snapshot.hasData) {
+                                  Lang? userLang = snapshot.data;
+                                  return Text(
+                                      userLang == Lang.ch
+                                          ? '选择时间'
+                                          : "Select Time",
+                                      style: const TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w400));
+                                } else {
+                                  return const Text(
+                                    "Select Time",
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w400),
+                                  );
+                                }
+                              }),
                         )
                       ],
                     ),
@@ -355,7 +495,21 @@ class _BeneficiaryCreateRequestScreenState
                       setRequest(request);
                       navigateToRequest(selected.toString());
                     },
-                    child: Text(userLang == Lang.ch ? '确认' : "Confirm"),
+                    child: FutureBuilder(
+                        future: _userLang,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<Lang?> snapshot) {
+                          if (snapshot.hasData) {
+                            Lang? userLang = snapshot.data;
+                            return Text(userLang == Lang.ch ? '确认' : "Confirm");
+                          } else {
+                            return const Text(
+                              "Confirm",
+                              style: TextStyle(
+                                  fontSize: 28, fontWeight: FontWeight.w400),
+                            );
+                          }
+                        }),
                   ),
                 ),
               ],
