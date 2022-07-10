@@ -76,7 +76,7 @@ class _BeneficiaryPendingRequestScreenState
                                     fontWeight: FontWeight.w400,
                                     decoration: TextDecoration.underline)),
                             request.isAccepted
-                                ? Text(request.requesterId.toString(),
+                                ? Text(request.acceptedId.toString(),
                                     style: const TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.w600))

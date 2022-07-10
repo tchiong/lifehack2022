@@ -88,14 +88,20 @@ class _BeneficiaryFeedbackScreenState extends State<BeneficiaryFeedbackScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text("Assigned Volunteer:",
+                    children: [
+                      const Text("Assigned Volunteer:",
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.w600)),
-                      Text("Pending", // Change to request.acceptedId's name
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w400)),
-                      SizedBox(
+                      widget.request.isAccepted
+                          ? Text(widget.request.acceptedId.toString(),
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.w600))
+                          : const Text("No Volunteer",
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.red)),
+                      const SizedBox(
                         height: 10,
                       ),
                     ],
