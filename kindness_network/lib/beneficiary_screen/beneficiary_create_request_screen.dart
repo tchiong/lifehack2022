@@ -103,6 +103,7 @@ class _BeneficiaryCreateRequestScreenState
       requestTime: date,
       isCompletedAcceptee: false,
       isCompletedBeneficiary: false,
+      completedTime: null,
       rating: -1,
       feedback: '',
     );

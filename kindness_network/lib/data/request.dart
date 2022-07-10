@@ -9,6 +9,7 @@ class Request {
   DateTime requestTime;
   bool isCompletedAcceptee;
   bool isCompletedBeneficiary;
+  DateTime? completedTime;
   double rating;
   String feedback;
 
@@ -25,6 +26,7 @@ class Request {
       required this.requestTime,
       required this.isCompletedAcceptee,
       required this.isCompletedBeneficiary,
+      required this.completedTime,
       required this.rating,
       required this.feedback});
 
@@ -38,6 +40,7 @@ class Request {
       'requestTime': requestTime.toString(),
       'isCompletedAcceptee': isCompletedAcceptee,
       'isCompletedBeneficiary': isCompletedBeneficiary,
+      'completedTime': completedTime.toString(),
       'rating': rating,
       'feedback': feedback,
     };
@@ -68,6 +71,7 @@ class Request {
       'requestTime': '',
       'isCompletedAcceptee': '',
       'isCompletedBeneficiary': '',
+      'completedTime': '',
       'rating': '',
       'feedback': '',
     };
@@ -107,6 +111,7 @@ class Request {
         requestTime: DateTime.parse(attributes['requestTime']),
         isCompletedAcceptee: attributes['isCompletedAcceptee'],
         isCompletedBeneficiary: attributes['isCompletedBeneficiary'],
+        completedTime: DateTime.parse(attributes['completedTime']),
         rating: (attributes['rating'] as int).toDouble(),
         feedback: attributes['feedback']);
   }
@@ -228,6 +233,7 @@ class Request {
       }
       if (key != null) {
         request.isCompletedBeneficiary = true;
+        request.completedTime = DateTime.now();
         Firebase().pushData('request/$key', request.toJson());
       }
     }
