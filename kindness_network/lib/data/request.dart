@@ -111,7 +111,9 @@ class Request {
         requestTime: DateTime.parse(attributes['requestTime']),
         isCompletedAcceptee: attributes['isCompletedAcceptee'],
         isCompletedBeneficiary: attributes['isCompletedBeneficiary'],
-        completedTime: DateTime.parse(attributes['completedTime']),
+        completedTime: attributes['completedTime'] == null
+            ? DateTime.parse(attributes['completedTime'])
+            : null,
         rating: (attributes['rating'] as int).toDouble(),
         feedback: attributes['feedback']);
   }
