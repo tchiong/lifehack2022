@@ -33,9 +33,11 @@ To mark a request as complete, both the beneficiary and volunteer would have to 
 # Note
 With regards to the language, we intend to offer the feature to beneficiaries and volunteers alike, however, with the duration of the competition, there was not enough time for translation.
 
+For future implementations we would not let the beneficiary mark job as complete if there is no volunteer present, only allow them to cancel.
+
 With regards to showing volunteer and beneficiary names, since the future implementation of the app intends to use singpass to get this info, we currently pass user id around instead, therefore users are represented by numbers.
 
-Beneficiary Account 1 = 0\
-Beneficiary Account 2 = 1\
-Volunteer Account 1 = 2
+Beneficiary Account 1 = User Id 0\
+Beneficiary Account 2 = User Id 1\
+Volunteer Account 1 = User Id 2
 
