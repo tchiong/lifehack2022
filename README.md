@@ -27,3 +27,6 @@ Using the beneficiary accounts, one can create a new request, view pending reque
 the beneficiary
 
 Using the volunteer account, one can view unaccepted, pending and completed requests and accept requests.
+
+# Note
+With regards to the language, we intend to offer the feature to beneficiaries and volunteers alike, however, with the duration of the competition, there was not enough time for translation.
