@@ -9,11 +9,12 @@ Alternatively, if you have flutter installed, you may run the main.dart file wit
 
 ### Setting up using the apk
 
+The apk file is named kindness_network.apk
 Download the apk file to an android emulator or android phone and install the app. 
 
 ### Setting up using flutter
 
-You will require flutter v3.0.4, connect your android emulator/device and run the main.dart file.
+You will require flutter v3.0.4, connect your android emulator/device and run the main.dart file. Or, you can ```cd kindness_network``` and run ```flutter install```
 
 ## Test Accounts
 
