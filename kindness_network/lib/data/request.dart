@@ -236,6 +236,7 @@ class Request {
       }
       if (key != null) {
         request.isCompletedBeneficiary = true;
+        request.isCompletedAcceptee = true;
         request.completedTime = DateTime.now();
         Firebase().pushData('request/$key', request.toJson());
       }
