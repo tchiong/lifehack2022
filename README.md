@@ -35,7 +35,7 @@ With regards to the language, we intend to offer the feature to beneficiaries an
 
 With regards to showing volunteer and beneficiary names, since the future implementation of the app intends to use singpass to get this info, we currently pass user id around instead, therefore users are represented by numbers.
 
-Beneficiary Account 1 -> 0
-Beneficiary Account 2 -> 1
-Volunteer Account 1 -> 2
+Beneficiary Account 1 = 0\
+Beneficiary Account 2 = 1\
+Volunteer Account 1 = 2
 
