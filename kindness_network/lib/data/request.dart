@@ -264,4 +264,19 @@ enum JobType {
   String toString() {
     return value;
   }
+
+  String toChinese() {
+    switch (value) {
+      case 'Mental Wellbeing':
+        return '心理健康';
+      case 'House-keeping':
+        return '家政';
+      case 'Mobility':
+        return '运输服务';
+      case 'Digital Literacy':
+        return '数字素养';
+      default:
+        return value;
+    }
+  }
 }

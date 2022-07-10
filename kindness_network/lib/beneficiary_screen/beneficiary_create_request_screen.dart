@@ -5,6 +5,7 @@ import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.d
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 import 'package:kindness_network/data/request.dart';
+import 'package:kindness_network/data/users.dart';
 
 import '../data/firebase.dart';
 
@@ -24,6 +25,19 @@ class _BeneficiaryCreateRequestScreenState
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = const TimeOfDay(hour: 12, minute: 0);
   late Request userRequest;
+  Lang? userLang; //TODO: Get this at the start
+
+  void refreshLang() async {
+    userLang = await User.getUserFromUserId(widget.userId).then(
+      (value) {
+        if (value != null) {
+          return value.language;
+        } else {
+          return Lang.en;
+        }
+      },
+    );
+  }
 
   void navigateToRequest(String requestType) {
     Navigator.pushNamed(context, BeneficiaryRequestScreen.routeName,
@@ -102,11 +116,15 @@ class _BeneficiaryCreateRequestScreenState
               children: [
                 LanguageSelector(
                   userId: widget.userId,
+                  callback: refreshLang,
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                Text(selected.toString(),
+                Text(
+                    userLang == Lang.ch
+                        ? selected.toChinese()
+                        : selected.toString(),
                     style: const TextStyle(
                         fontSize: 28, fontWeight: FontWeight.w600)),
                 const SizedBox(
@@ -143,7 +161,10 @@ class _BeneficiaryCreateRequestScreenState
                                 height: 70,
                                 width: 70,
                               ),
-                              Text(JobType.mental.toString(),
+                              Text(
+                                  userLang == Lang.ch
+                                      ? JobType.mental.toChinese()
+                                      : JobType.mental.toString(),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(color: Colors.black)),
                             ],
@@ -174,7 +195,10 @@ class _BeneficiaryCreateRequestScreenState
                                 height: 70,
                                 width: 70,
                               ),
-                              Text(JobType.housekeeping.toString(),
+                              Text(
+                                  userLang == Lang.ch
+                                      ? JobType.housekeeping.toChinese()
+                                      : JobType.housekeeping.toString(),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(color: Colors.black)),
                             ],
@@ -207,7 +231,10 @@ class _BeneficiaryCreateRequestScreenState
                                 height: 70,
                                 width: 70,
                               ),
-                              Text(JobType.mobility.toString(),
+                              Text(
+                                  userLang == Lang.ch
+                                      ? JobType.mobility.toChinese()
+                                      : JobType.mobility.toString(),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(color: Colors.black)),
                             ],
@@ -238,7 +265,10 @@ class _BeneficiaryCreateRequestScreenState
                                 height: 70,
                                 width: 70,
                               ),
-                              Text(JobType.literacy.toString(),
+                              Text(
+                                  userLang == Lang.ch
+                                      ? JobType.literacy.toChinese()
+                                      : JobType.literacy.toString(),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(color: Colors.black)),
                             ],
@@ -253,9 +283,9 @@ class _BeneficiaryCreateRequestScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Text(
-                          "Date: ",
-                          style: TextStyle(
+                        Text(
+                          userLang == Lang.ch ? '日期' : "Date: ",
+                          style: const TextStyle(
                               fontSize: 28, fontWeight: FontWeight.w400),
                         ),
                         Text(
@@ -267,9 +297,9 @@ class _BeneficiaryCreateRequestScreenState
                           onPressed: () {
                             _selectDate(context);
                           },
-                          child: const Text(
-                            "Select Date",
-                            style: TextStyle(
+                          child: Text(
+                            userLang == Lang.ch ? '选择日期' : "Select Date",
+                            style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w400),
                           ),
                         ),
@@ -278,9 +308,9 @@ class _BeneficiaryCreateRequestScreenState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Text(
-                          "Time: ",
-                          style: TextStyle(
+                        Text(
+                          userLang == Lang.ch ? '时间' : "Time: ",
+                          style: const TextStyle(
                               fontSize: 28, fontWeight: FontWeight.w400),
                         ),
                         Text(
@@ -292,9 +322,9 @@ class _BeneficiaryCreateRequestScreenState
                           onPressed: () {
                             _selectTime();
                           },
-                          child: const Text(
-                            "Select Time",
-                            style: TextStyle(
+                          child: Text(
+                            userLang == Lang.ch ? '选择时间' : "Select Time",
+                            style: const TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w400),
                           ),
                         )
@@ -322,7 +352,7 @@ class _BeneficiaryCreateRequestScreenState
                       setRequest(request);
                       navigateToRequest(selected.toString());
                     },
-                    child: const Text("Confirm"),
+                    child: Text(userLang == Lang.ch ? '确认' : "Confirm"),
                   ),
                 ),
               ],
