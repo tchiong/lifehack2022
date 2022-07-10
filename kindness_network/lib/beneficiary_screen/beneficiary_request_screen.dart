@@ -57,7 +57,6 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    User? acceptedUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Request Details"),
