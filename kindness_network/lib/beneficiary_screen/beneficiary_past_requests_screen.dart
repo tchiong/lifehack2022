@@ -46,7 +46,13 @@ class _BeneficiaryPastRequestsScreenState
             User? user = snapshot.data?[1];
             if (calculation.isEmpty) {
               children = const <Widget>[
-                Center(child: Text("No Requests Completed yet!"))
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                    child: Text("No Requests Completed yet!",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w500)))
               ];
             } else {
               children = calculation.map((request) {

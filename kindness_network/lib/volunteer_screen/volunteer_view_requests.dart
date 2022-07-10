@@ -93,7 +93,13 @@ class _VolunteerViewRequestsScreenState
               List<User> users = snapshot.data?[1];
               if (calculation.isEmpty) {
                 children = const <Widget>[
-                  Center(child: Text("No Requests yet!"))
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                      child: Text("No Requests yet!",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w500)))
                 ];
               } else {
                 children = calculation.map((request) {

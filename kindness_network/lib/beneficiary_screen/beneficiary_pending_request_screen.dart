@@ -43,7 +43,13 @@ class _BeneficiaryPendingRequestScreenState
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
               children = const <Widget>[
-                Center(child: Text("No Requests yet!"))
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                    child: Text("No Requests yet!",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w500)))
               ];
             } else {
               children = snapshot.data!.map((request) {
