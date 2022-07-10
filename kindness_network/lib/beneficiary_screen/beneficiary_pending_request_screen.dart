@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_request_screen.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/data/request.dart';
@@ -64,7 +65,9 @@ class _BeneficiaryPendingRequestScreenState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text("${request.requestTime}",
+                            Text(
+                                DateFormat('yyyy-MM-dd hh:mm')
+                                    .format(request.requestTime),
                                 style: const TextStyle(
                                     fontSize: 24, fontWeight: FontWeight.w400)),
                             Text(request.jobType.toString(),

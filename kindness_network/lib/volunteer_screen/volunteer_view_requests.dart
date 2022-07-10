@@ -28,15 +28,15 @@ class _VolunteerViewRequestsScreenState
     super.initState();
   }
 
-  void acceptRequest(Request request) async {
-    bool accepted = await showDialog(
+  void acceptRequest(Request request, User requesterUser) async {
+    bool? accepted = await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text("Are you sure?"),
           content: RichText(
               text: TextSpan(
-            text: request.id.toString(), //TODO: Add address
+            text: requesterUser.address,
             style: const TextStyle(color: Colors.black, fontSize: 20),
             children: [
               TextSpan(
@@ -66,8 +66,8 @@ class _VolunteerViewRequestsScreenState
     _moveToRequestScreen(accepted, request);
   }
 
-  void _moveToRequestScreen(bool accepted, Request request) {
-    if (accepted) {
+  void _moveToRequestScreen(bool? accepted, Request request) {
+    if (accepted != null && accepted) {
       Navigator.pushNamed(context, VolunteerRequestScreen.routeName,
           arguments: request);
     }
@@ -166,7 +166,7 @@ class _VolunteerViewRequestsScreenState
                               ),
                             ),
                             onPressed: () {
-                              acceptRequest(request);
+                              acceptRequest(request, requesterUser);
                             },
                             child: const Text("Accept",
                                 style: TextStyle(color: Colors.black)),

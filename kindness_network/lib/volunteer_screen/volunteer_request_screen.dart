@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:kindness_network/common/constants.dart';
 import 'package:kindness_network/common/widgets/language_selector.dart';
 import 'package:kindness_network/data/firebase.dart';
@@ -87,7 +88,9 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
                         const Text("Request Raised:",
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.w600)),
-                        Text(widget.request.requestTime.toString(),
+                        Text(
+                            DateFormat('yyyy-MM-dd hh:mm')
+                                .format(widget.request.requestTime),
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w400)),
                         Text(widget.request.jobType.toString(),
