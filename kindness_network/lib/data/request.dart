@@ -129,7 +129,8 @@ class Request {
           .toList()
           .map((requestData) => parseJson(requestData))
           .where((request) =>
-              request.isCompletedAcceptee == false && request.requesterId == id)
+              request.isCompletedBeneficiary == false &&
+              request.requesterId == id)
           .toList());
       return requests;
     }

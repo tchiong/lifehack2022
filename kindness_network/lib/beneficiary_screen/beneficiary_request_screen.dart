@@ -23,7 +23,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
   void navigateToBeneficiaryScreen() {
     Navigator.pushNamedAndRemoveUntil(
         context, BeneficiaryMainScreen.routeName, (_) => false,
-        arguments: widget.request);
+        arguments: widget.request.requesterId);
   }
 
   void navigateToBeneficiaryFeedbackScreen() {
