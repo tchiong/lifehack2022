@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kindness_network/beneficiary_screen/beneficiary_create_request_screen.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_feedback_screen.dart';
 import 'package:kindness_network/beneficiary_screen/beneficiary_main.dart';
 import 'package:kindness_network/common/constants.dart';
@@ -20,6 +21,12 @@ class BeneficiaryRequestScreen extends StatefulWidget {
 
 class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
   void navigateToBeneficiaryScreen() {
+    Navigator.pushNamedAndRemoveUntil(
+        context, BeneficiaryMainScreen.routeName, (_) => false,
+        arguments: widget.request);
+  }
+
+  void navigateToBeneficiaryFeedbackScreen() {
     Navigator.pushNamedAndRemoveUntil(
         context, BeneficiaryFeedbackScreen.routeName, (_) => false,
         arguments: widget.request);
@@ -200,7 +207,7 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                     ),
                     onPressed: () async {
                       Request.completeRequest(widget.request);
-                      navigateToBeneficiaryScreen();
+                      navigateToBeneficiaryFeedbackScreen();
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

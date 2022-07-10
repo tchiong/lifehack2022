@@ -20,11 +20,12 @@ class BeneficiaryFeedbackScreen extends StatefulWidget {
 }
 
 class _BeneficiaryFeedbackScreenState extends State<BeneficiaryFeedbackScreen> {
-  double rating = 1;
+  double rating = 1.0;
   TextEditingController feedbackController = TextEditingController();
   void navigateToBeneficiaryScreen() {
     Navigator.pushNamedAndRemoveUntil(
-        context, BeneficiaryMainScreen.routeName, (_) => false);
+        context, BeneficiaryMainScreen.routeName, (_) => false,
+        arguments: widget.request.requesterId);
   }
 
   @override
@@ -199,8 +200,11 @@ class _BeneficiaryFeedbackScreenState extends State<BeneficiaryFeedbackScreen> {
                         borderRadius: BorderRadius.circular(defaultRadius),
                       ),
                     ),
-                    onPressed: () =>
-                        {navigateToBeneficiaryScreen()}, //TODO: Submit feedback
+                    onPressed: () {
+                      Request.submitFeedback(
+                          widget.request, rating, feedbackController.text);
+                      navigateToBeneficiaryScreen();
+                    },
                     child: const Text("Submit",
                         style: TextStyle(color: Colors.black)),
                   ),

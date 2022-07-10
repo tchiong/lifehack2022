@@ -94,13 +94,16 @@ class _BeneficiaryCreateRequestScreenState
       selectedTime.minute,
     );
     Request request = Request(
-        id: id,
-        requesterId: widget.userId,
-        jobType: selectedType,
-        isAccepted: false,
-        acceptedId: -1,
-        requestTime: date,
-        isCompleted: false);
+      id: id,
+      requesterId: widget.userId,
+      jobType: selectedType,
+      isAccepted: false,
+      acceptedId: -1,
+      requestTime: date,
+      isCompleted: false,
+      rating: -1,
+      feedback: '',
+    );
     Firebase().pushDataToList('request/', request.toJson());
     return request;
   }
