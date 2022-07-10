@@ -32,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     height: 120,
                   ),
                   const Text(
-                    "Welcome to Kindess Network!",
+                    "Welcome to Kindness Network!",
                     style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
