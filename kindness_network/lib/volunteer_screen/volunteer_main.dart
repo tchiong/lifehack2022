@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kindness_network/volunteer_screen/volunteer_past_requests_screen.dart';
+import 'package:kindness_network/volunteer_screen/volunteer_pending_requests_screen.dart';
 import 'package:kindness_network/volunteer_screen/volunteer_view_requests.dart';
 
 class VolunteerMainScreen extends StatefulWidget {
@@ -24,8 +25,12 @@ class _VolunteerMainScreenState extends State<VolunteerMainScreen> {
       VolunteerViewRequestsScreen(
         userId: widget.userId,
       ),
-      const Center(child: Text("upcoming")),
-      const Center(child: Text("past")),
+      VolunteerPendingRequestsScreen(
+        userId: widget.userId,
+      ),
+      VolunteerPastRequestsScreen(
+        userId: widget.userId,
+      ),
     ];
     super.initState();
   }
