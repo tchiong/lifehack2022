@@ -8,6 +8,8 @@ class Request {
   int acceptedId;
   DateTime requestTime;
   bool isCompleted;
+  double rating;
+  String feedback;
 
   int newId() {
     return 0;
@@ -20,7 +22,9 @@ class Request {
       required this.isAccepted,
       required this.acceptedId,
       required this.requestTime,
-      required this.isCompleted});
+      required this.isCompleted,
+      required this.rating,
+      required this.feedback});
 
   Map toJson() {
     return {
@@ -31,6 +35,8 @@ class Request {
       'acceptedId': acceptedId,
       'requestTime': requestTime.toString(),
       'isCompleted': isCompleted,
+      'rating': rating,
+      'feedback': feedback,
     };
   }
 
@@ -58,6 +64,8 @@ class Request {
       'acceptedId': '',
       'requestTime': '',
       'isCompleted': '',
+      'rating': '',
+      'feedback': '',
     };
 
     JobType jobType = JobType.mobility;
@@ -93,7 +101,9 @@ class Request {
         isAccepted: attributes['isAccepted'],
         acceptedId: attributes['acceptedId'],
         requestTime: DateTime.parse(attributes['requestTime']),
-        isCompleted: attributes['isCompleted']);
+        isCompleted: attributes['isCompleted'],
+        rating: (attributes['rating'] as int).toDouble(),
+        feedback: attributes['feedback']);
   }
 
   // Database Calls
@@ -211,6 +221,25 @@ class Request {
       }
       if (key != null) {
         request.isCompleted = true;
+        Firebase().pushData('request/$key', request.toJson());
+      }
+    }
+  }
+
+  static void submitFeedback(
+      Request request, double rating, String feedback) async {
+    Map? requestsData = await Firebase().readData('request/');
+    if (requestsData != null) {
+      String? key;
+      List<String> pointer = List<String>.from(requestsData.keys.toList());
+      for (String string in pointer) {
+        if (parseJson(requestsData[string]).id == request.id) {
+          key = string;
+        }
+      }
+      if (key != null) {
+        request.rating = rating;
+        request.feedback = feedback;
         Firebase().pushData('request/$key', request.toJson());
       }
     }
