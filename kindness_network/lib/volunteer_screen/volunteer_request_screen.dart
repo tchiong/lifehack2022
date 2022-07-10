@@ -22,7 +22,8 @@ class _VolunteerRequestScreenState extends State<VolunteerRequestScreen> {
 
   void navigateToVolunteerScreen() {
     Navigator.pushNamedAndRemoveUntil(
-        context, VolunteerMainScreen.routeName, (_) => false);
+        context, VolunteerMainScreen.routeName, (_) => false,
+        arguments: widget.request.acceptedId);
   }
 
   showPhoneDialog() async {
