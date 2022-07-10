@@ -28,7 +28,7 @@ the beneficiary
 
 Using the volunteer account, one can view unaccepted, pending and completed requests and accept requests.
 
-To mark a request as complete, both the beneficiary and volunteer would have to indicate completed.
+To mark a request as complete, both the beneficiary and volunteer would have to indicate completed, before it will show up on the past requests.
 
 # Note
 With regards to the language, we intend to offer the feature to beneficiaries and volunteers alike, however, with the duration of the competition, there was not enough time for translation.
