@@ -213,8 +213,25 @@ class _BeneficiaryRequestScreenState extends State<BeneficiaryRequestScreen> {
                       ),
                     ),
                     onPressed: () async {
-                      Request.completeRequestBenficiary(widget.request);
-                      navigateToBeneficiaryFeedbackScreen();
+                      if (widget.request.isAccepted) {
+                        Request.completeRequestBenficiary(widget.request);
+                        navigateToBeneficiaryFeedbackScreen();
+                      } else {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Request has not been Accepted'),
+                            content: const Text(
+                                'Please give volunteers some time to accept the request'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
